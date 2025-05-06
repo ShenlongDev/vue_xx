@@ -1,26 +1,17 @@
 <script setup>
-  const number = 100
+  const seen = true
 </script>
 
 <template>
-  使用JavaScript表达式
-  至此，我们进在模板中绑定了一些简单的属性名。
-  但是vue实际上在所有的数据绑定中都支持完整的JavaScript表达式：
+  指令Directives
+  指令是带有v-前缀的特殊attribute。
+  Vue提供了许多内置指令， 包括上面我们所介绍的v-bind和v-html。
+  指令attribute的期望值为一个JavaScript表达式（除了少数几个例外，及之后要讨论到的）
+  一个指令的任务是在其表达式的值变化是响应式地更新DOM。
+  以v-if为例：
+  <p v-if="seen">Now you see me</p>
+  这里，v-if指令急用钱表达式seeen 的值的真移除/插入这个p元素。
 
-  <span>{{ number + 1 }}</span>
-
-  这些表达式都会被作为Javascript，以当前组件实例为作用域解析举行。
-  在Vue模板内，JavaScript表达式可以被使用在如下场景上：
-  在文本插值中（双大括号）
-  在任何Vue指令（以v-开头的特殊attribute）attribute的值中
-
-  仅支持表达式
-  每个绑定仅支持单一表达式，也就是一段能够被求求值的JavaScript代码。
-  一个简单的判断方法是是否可以合法地写在return后面。
-  因此，下面的例子都是无效的
-
-  调用函数
-  可以在绑定的表达式中使用一个组件暴露的方法
 </template>
 
 <style scoped>
