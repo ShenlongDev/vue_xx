@@ -1,31 +1,35 @@
 <script setup>
-import { ref, reactive } from 'vue'
+import { reactive, computed } from 'vue'
 
-const books = reactive([ref('Vue 3 Guide')])
-// 这里需要 .value
-console.log(books[0].value)
+const author = reactive({
+  name: 'John Doe',
+  books: [
+    'Vue 2 - Advanced Guide',
+    'Vue 3 - Basic Guide',
+    'Vue 4 - The Mystery'
+  ]
+})
 
-const map = reactive(new Map([['count', ref(0)]]))
-// 这里需要 .value
-console.log(map.get('count').value)
+// 一个计算属性 ref
+const publishedBooksMessage = computed(() => {
+  return author.books.length > 0 ? 'Yes' : 'No'
+})
 </script>
 
 <template>
-  额外的ref解包细节
-  <h1>作为reactive对象的属性</h1>
-  <p>一个ref会在作为响应式对象的属性被访问或修改时自动解包。和换句话说，他的行为就像一个普通的属性：</p>
+  <h1>计算属性</h1>
+  <h2>基础示例</h2>
+  <p>模板中的表达式虽然方便，但也只能用来做简单的操作。如果在模板中写太多逻辑，会让模板变得臃肿，难以维护。</p>
+  <p>比如说，我们有这样一个嵌套数组的对象：</p>
+  <p>我们想根据 author 是否已有一些书籍来展示不同的信息</p>
+  <p>Has published Books: </p>
+  <span>{{ author.books.length > 0 ? 'yes' : 'no' }}</span>
 
-  <p>如果将一个新的ref赋值给一个关联了已有ref的属性，那么他会替换掉旧的ref：</p>
-
-  <h1>数组和集合的注意事项</h1>
-  <p>与reactive对象不同的是，当ref作为响应式数组或原生集合类型（如Map）中的元素被访问时，他不会被解包</p>
-
-  <h1>在模板中解包的注意事项</h1>
-  <p>在模板中渲染上下文中，只有顶级的ref属性才会被解包。</p>
-  在下面的例子中，count和object时顶级属性，但object.id不是：
-  渲染的结果时，为了解决这个问题，我们可以将id结构为一个顶级属性：、现在渲染的结果将是2
-  另一个需要注意的点是，如果ref是文本插值的最终计算值
-  该特性仅仅是文本插值的一个便利特性，等价于 {{ object.id.value }}。
+  <p>这里的模板看起来有些复杂。我们必须认真看好一会儿才能明白他的计算依赖于author.books。</p>
+  <p>更重要的是，如果我们在模板中需要不止一次这样的计算，我们可不想将这这样的代码在模板里重复好多遍。</p>
+  <p>因此我们推荐你使用计算属性来描述以来响应式状态的复杂逻辑。这是重构后的示例</p>
+  <p>Has published Books: </p>
+  <span>{{ publishedBooksMessage }}</span>
 </template>
 
 <style scoped></style>
