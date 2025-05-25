@@ -14,22 +14,29 @@ const author = reactive({
 const publishedBooksMessage = computed(() => {
   return author.books.length > 0 ? 'Yes' : 'No'
 })
+
+// 组件中
+function calculatedBooksMessage() {
+  return author.books.length > 0 ? 'Yes' : 'No'
+}
+
+const now = computed(() => Date.now())
 </script>
 
 <template>
   <h1>计算属性</h1>
-  <h2>基础示例</h2>
-  <p>模板中的表达式虽然方便，但也只能用来做简单的操作。如果在模板中写太多逻辑，会让模板变得臃肿，难以维护。</p>
-  <p>比如说，我们有这样一个嵌套数组的对象：</p>
-  <p>我们想根据 author 是否已有一些书籍来展示不同的信息</p>
-  <p>Has published Books: </p>
-  <span>{{ author.books.length > 0 ? 'yes' : 'no' }}</span>
-
-  <p>这里的模板看起来有些复杂。我们必须认真看好一会儿才能明白他的计算依赖于author.books。</p>
-  <p>更重要的是，如果我们在模板中需要不止一次这样的计算，我们可不想将这这样的代码在模板里重复好多遍。</p>
-  <p>因此我们推荐你使用计算属性来描述以来响应式状态的复杂逻辑。这是重构后的示例</p>
-  <p>Has published Books: </p>
-  <span>{{ publishedBooksMessage }}</span>
+  <h2>计算属性缓存 vs 方法</h2>
+  <p>你可能注意到我们在表达式中想这样调用一个函数也会获得和计算属性相同的结果：</p>
+  <p>{{ calculatedBooksMessage() }}</p>
+  <p>若我们将同样的函数定义为一个方法而不是计算属性，两种方式在结果上确实是完全相同的，然而</p>
+  <p>不同之处在于计算属性值会给予其响应式以来被缓存。</p>
+  <p>一个计算属性仅会在其响应式依赖更新时才重新计算。这意味着只要author.books不改变，无论多少次访问</p>
+  <p>publishedBooksMessage都会立即返回先前的计算结果，而不用重复举行getter函数。</p>
+  <p>这也解释了为什么下面的计算属性永远不会更新，因为Date.now()并不是一个响应式依赖</p>
+  <p>相比之下，方法调用总是会在重渲染发生时再次举行函数。</p>
+  <p>为什么需要缓存呢？想象一下我们有一个非常耗性能的计算属性list，需要循环一个巨大的数组并作许多计算逻辑，并且可能也有其他计算属性依赖于list。</p>
+  <p>没有缓存的话，，我们会重复举行非常多次list的getter，然而这实际上没有必要！</p>
+  <p>如果你确定不需要缓存，那么也可以使用方法调用。</p>
 </template>
 
 <style scoped></style>
