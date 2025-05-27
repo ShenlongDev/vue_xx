@@ -1,42 +1,28 @@
 <script setup>
-import { reactive, computed } from 'vue'
+import { ref, computed } from 'vue'
 
-const author = reactive({
-  name: 'John Doe',
-  books: [
-    'Vue 2 - Advanced Guide',
-    'Vue 3 - Basic Guide',
-    'Vue 4 - The Mystery'
-  ]
+const firstName = ref('John')
+const lastName = ref('Doe')
+
+const fullName = computed({
+  // getter
+  get() {
+    return firstName.value + ' ' + lastName.value
+  },
+  // setter
+  set(newValue) {
+    // 注意：我们这里使用的是解构赋值语法
+    [firstName.value, lastName.value] = newValue.split(' ')
+  }
 })
-
-// 一个计算属性 ref
-const publishedBooksMessage = computed(() => {
-  return author.books.length > 0 ? 'Yes' : 'No'
-})
-
-// 组件中
-function calculatedBooksMessage() {
-  return author.books.length > 0 ? 'Yes' : 'No'
-}
-
-const now = computed(() => Date.now())
 </script>
 
 <template>
   <h1>计算属性</h1>
-  <h2>计算属性缓存 vs 方法</h2>
-  <p>你可能注意到我们在表达式中想这样调用一个函数也会获得和计算属性相同的结果：</p>
-  <p>{{ calculatedBooksMessage() }}</p>
-  <p>若我们将同样的函数定义为一个方法而不是计算属性，两种方式在结果上确实是完全相同的，然而</p>
-  <p>不同之处在于计算属性值会给予其响应式以来被缓存。</p>
-  <p>一个计算属性仅会在其响应式依赖更新时才重新计算。这意味着只要author.books不改变，无论多少次访问</p>
-  <p>publishedBooksMessage都会立即返回先前的计算结果，而不用重复举行getter函数。</p>
-  <p>这也解释了为什么下面的计算属性永远不会更新，因为Date.now()并不是一个响应式依赖</p>
-  <p>相比之下，方法调用总是会在重渲染发生时再次举行函数。</p>
-  <p>为什么需要缓存呢？想象一下我们有一个非常耗性能的计算属性list，需要循环一个巨大的数组并作许多计算逻辑，并且可能也有其他计算属性依赖于list。</p>
-  <p>没有缓存的话，，我们会重复举行非常多次list的getter，然而这实际上没有必要！</p>
-  <p>如果你确定不需要缓存，那么也可以使用方法调用。</p>
+  <h2>可写计算属性</h2>
+  <p>计算属性默认是只读的。当你尝试修改一个计算属性时，你会收到一个运行时警告。</p>
+  <p>旨在某些特殊场景中你可能才需要用到“可写”的属性，你可以通过同时提供getter和setter来创建：</p>
+  <p>现在当你在运行fullName.value='John Doe'时，setter会被调用而first Name和lastName会随之更新。</p>
 </template>
 
 <style scoped></style>
