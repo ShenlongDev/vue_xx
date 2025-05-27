@@ -1,28 +1,35 @@
 <script setup>
 import { ref, computed } from 'vue'
+const count = ref(2)
 
-const firstName = ref('John')
-const lastName = ref('Doe')
+const alwaysSmall = computed((previous) => {
+  if (count.value <= 3) {
+    return count.value
+  }
 
-const fullName = computed({
-  // getter
-  get() {
-    return firstName.value + ' ' + lastName.value
+  return previous
+})
+
+const alwaysSmall1 = computed({
+  get(previous) {
+    if (count.value <= 3) {
+      return count.value
+    }
+
+    return previous
   },
-  // setter
   set(newValue) {
-    // 注意：我们这里使用的是解构赋值语法
-    [firstName.value, lastName.value] = newValue.split(' ')
+    count.value = newValue * 2
   }
 })
 </script>
 
 <template>
   <h1>计算属性</h1>
-  <h2>可写计算属性</h2>
-  <p>计算属性默认是只读的。当你尝试修改一个计算属性时，你会收到一个运行时警告。</p>
-  <p>旨在某些特殊场景中你可能才需要用到“可写”的属性，你可以通过同时提供getter和setter来创建：</p>
-  <p>现在当你在运行fullName.value='John Doe'时，setter会被调用而first Name和lastName会随之更新。</p>
+  <h2>获取上一个值</h2>
+  <p>仅3.4+支持</p>
+  <p>如果需要，可以通过访问计算属性的Getter的第一个参数来获取计算属性返回的上一个值。</p>
+  <p>如果你正在使用可写的计算属性的话</p>
 </template>
 
 <style scoped></style>
