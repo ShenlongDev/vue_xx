@@ -1,35 +1,18 @@
-<script setup>
-import { ref, computed } from 'vue'
-const count = ref(2)
-
-const alwaysSmall = computed((previous) => {
-  if (count.value <= 3) {
-    return count.value
-  }
-
-  return previous
-})
-
-const alwaysSmall1 = computed({
-  get(previous) {
-    if (count.value <= 3) {
-      return count.value
-    }
-
-    return previous
-  },
-  set(newValue) {
-    count.value = newValue * 2
-  }
-})
-</script>
+<script setup></script>
 
 <template>
   <h1>计算属性</h1>
-  <h2>获取上一个值</h2>
-  <p>仅3.4+支持</p>
-  <p>如果需要，可以通过访问计算属性的Getter的第一个参数来获取计算属性返回的上一个值。</p>
-  <p>如果你正在使用可写的计算属性的话</p>
+  <h2>最佳实践</h2>
+  <p>Geeter不应有副作用</p>
+  <p>计算属性的getter应只做计算二没有任何其他的副作用，这一点非常重要，请务必牢记。</p>
+  <p>举例来说，不要改变其他状态，在getter中做一步请求或者更改DOM！</p>
+  <p>以恶计算属性的声明中描述的时如何根据其他派生一个值。</p>
+  <p>因此getter的职责应该进为计算和返回该值。</p>
+  <p>在之后的指引中我们会讨论如何使用侦听器更具同其他响应式状态的变更来创建副作用</p>
+  <p>避免直接修改计算属性</p>
+  <p>从计算属性返回的值时派生状态。可以啊它看作时一个’临时快照‘，每当原装胎发生变化时，</p>
+  <p>就会创建一个新的快照。更改快照时没有意图的，音系计算属性的返回值应该被是为制度的，</p>
+  <p>并且永远不应该更改————应该更新它所以来的元状态已触发新的计算。</p>
 </template>
 
 <style scoped></style>
