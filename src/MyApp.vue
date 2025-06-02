@@ -1,13 +1,20 @@
-<script setup></script>
+<script setup>
+import { ref } from 'vue'
+const isActive = ref(true)
+const hasError = ref(false)
+</script>
 
 <template>
   <h1>类与样式绑定</h1>
-  <p>根据绑定的一个常见需求场景是操纵元素的CSS class列表和内联样式。</p>
-  <p>因为class和style都是attribute，我们可以和其他attribute一样使用v-bind将他们和动态的字符串绑定。</p>
-  <p>但是，在处理比较复杂的绑定时，通过并接生成字符串是麻烦且易出错的。</p>
-  <p>因此，Vue专门为class和style的v-bind用法提供了特殊的功能增强。</p>
-  <p>除了字符串外，表达是的值也可以是对象或数组</p>
-  <p>除了字符串外，表达是的值也可以是对象或数组</p>
+  <h2>绑定 HTML class</h2>
+  <h3>绑定对象</h3>
+  <p>我们可以给 :class (v-bind:class 的缩写) 传递一个对象来动态切换 class：</p>
+  <div class="static" :class="{ active: isActive, 'text-danger': hasError }">
+    <p>这里的语法表示active是否存在取决于数据属性isActive的真假值。</p>
+    <p>你可以在对象中写多个字段来操作多个class。</p>
+    <p>此外，：class指令也可以和一般的 class attribute共存。</p>
+    <p>举例来说</p>
+  </div>
 </template>
 
 <style scoped></style>
