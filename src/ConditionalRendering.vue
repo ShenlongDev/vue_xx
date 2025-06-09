@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import CodeView from '@/components/CodeView.vue'
+import HeadingTwo from './components/HeadingTwo.vue'
 
 const awesome = ref(true)
 
@@ -62,6 +63,13 @@ const templateVIfStr = `<template v-if="ok">
   <CodeView :content="templateVIfStr" />
 
   <p>v-else和v-else-if也可以在template上使用。</p>
+
+  <HeadingTwo heading="v-show" />
+  <p>另一个可以用来按条件显示一个元素的指令是v-show</p>
+  <CodeView :content="`<h1 v-show='ok'>Hello!</h1>`" />
+  <p>不同之处在于v-show会在DOM渲染中保留该元素；</p>
+  <p>v-show进切换了该元素上名为display的CSS属性</p>
+  <p>v-show不支持在template元素上使用，也不能和v-else搭配使用</p>
 </template>
 
 <style></style>

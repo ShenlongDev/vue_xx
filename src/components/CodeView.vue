@@ -10,7 +10,7 @@ defineProps(['content'])
 </template>
 
 
-<style>
+<style scoped>
 .code-container {
   background: rgb(41, 45, 62);
   color: white;
