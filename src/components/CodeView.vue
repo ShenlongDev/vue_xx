@@ -1,12 +1,11 @@
-<script>
-import { defineProps } from 'vue'
-const props = defineProps(['content'])
+<script setup>
+defineProps(['content'])
 </script>
 
 
 <template>
   <div class="code-container">
-    <pre>{{ props.content }}</pre>
+    <pre>{{ content }}</pre>
   </div>
 </template>
 
