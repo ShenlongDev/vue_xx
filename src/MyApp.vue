@@ -1,12 +1,4 @@
-<script setup>
-import { ref, reactive } from 'vue'
-const activeColor = ref('red')
-const fontSize = ref(30)
-const sstyleObject = reactive({
-  color: 'red',
-  fontSize: '30px'
-})
-</script>
+<script setup></script>
 
 <template>
   <h1>类与样式绑定</h1>
