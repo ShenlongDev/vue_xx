@@ -21,6 +21,12 @@ const vElseIfStr = `<div v-if="type === 'A'">
 <div v-else>
   Not A/B/C
 </div>`
+
+const templateVIfStr = `<template v-if="ok">
+  <h1>Title</h1>
+  <p>Paragraph 1</p>
+  <p>Paragraph 2</p>
+</template>`
 </script>
 
 <template>
@@ -48,6 +54,14 @@ const vElseIfStr = `<div v-if="type === 'A'">
   <CodeView :content="vElseIfStr" />
 
   <p>和v-else类似，一个使用v-else-if的元素必须紧跟在一个v-if或一个v-else-if元素后面。</p>
+
+  <h2>template上的v-if</h2>
+  <p>因为v-if是一个指令，他必须依附于某个元素。</p>
+  <p>但如果我们想要切换不止一个元素呢？</p>
+  <p>在射中情况下我们可以在一个template元素上使用v-if，这只是不可兼得包装器元素，最后渲染的结果并不会包含这个teamplate元素。</p>
+  <CodeView :content="templateVIfStr" />
+
+  <p>v-else和v-else-if也可以在template上使用。</p>
 </template>
 
 <style></style>
