@@ -12,8 +12,9 @@ defineProps(['heading'])
 
 <style scoped>
 .heading-container {
+  display: inline-block;
   padding: 0.5rem 1rem;
-  margin: 1rem -1rem;
+  margin: 1rem;
   border-radius: 0.25rem;
   background-color: lightgray;
   color: #213547;

@@ -70,6 +70,14 @@ const templateVIfStr = `<template v-if="ok">
   <p>不同之处在于v-show会在DOM渲染中保留该元素；</p>
   <p>v-show进切换了该元素上名为display的CSS属性</p>
   <p>v-show不支持在template元素上使用，也不能和v-else搭配使用</p>
+
+  <HeadingTwo heading="v-if" />vs.<HeadingTwo heading="v-show" />
+  <p>v-if是“真是”的按条件渲染，因为它确保了在切换时，条件区块内的时间监听器和子组件都会被销毁和重建。</p>
+  <p>v-if也是惰性的：如果在初次渲染时条件值为false，则不会做任何事。</p>
+  <p>条件区块只有当条件手持变为true时才被渲染。</p>
+  <p>相比之下，v-show简单许多，元素无论初始条件如何，始终会被渲染，只有CSS display属性会被切换。</p>
+  <p>总的来说，v-if有更高的切换开销，而v-show有更高的初始渲染开销。</p>
+  <p>因此，如果需要频繁切换在，则使用v-show较好；如果在运行时绑定条件很少改变，则v-if会更合适。</p>
 </template>
 
 <style></style>
