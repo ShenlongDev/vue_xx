@@ -1,6 +1,18 @@
 <script setup>
 import CodeView from './components/CodeView.vue';
 import HeadingTwo from './components/HeadingTwo.vue';
+import EnLetter from './components/EnLetter.vue';
+
+const parentMessage = 'Parent'
+const items = [
+  /* ... */
+]
+
+items.forEach((item, index) => {
+  // 可以访问外层的 `parentMessage`
+  // 而 `item` 和 `index` 只在这个作用域可用
+  console.log(parentMessage, item.message, index)
+})
 </script>
 
 <template>
@@ -12,4 +24,51 @@ import HeadingTwo from './components/HeadingTwo.vue';
   <CodeView :content='`<li v-for="item in items">
   {{ item.message }}
 </li>`' />
+
+  <p>在
+    <EnLetter content="v-for" /> 块中可以完整地访问父作用域内的属性和变量。
+    <EnLetter content="v-for" />也支持使用可选的第二个参数表示当前想的位置索引。
+  </p>
+
+  <CodeView :content="`const parentMessage = ref('Parent')
+const items = ref([{ message: 'Foo' }, { message: 'Bar' }])`" />
+  <CodeView :content='`<li v-for="(item, index) in items">
+  {{ parentMessage }} - {{ index }} - {{ item.message }}
+</li>`' />
+
+  <p>
+    <EnLetter content="v-for" />变量的作用域和下面的 JavaScript 代码是很类似：
+  </p>
+  <CodeView :content="`const parentMessage = 'Parent'
+const items = [
+  /* ... */
+]
+
+items.forEach((item, index) => {
+  // 可以访问外层的 'parentMessage'
+  // 而 'item' 和 'index' 只在这个作用域可用
+  console.log(parentMessage, item.message, index)
+})`" />
+
+  <p>注意 <EnLetter content="v-for" />是如何对应<EnLetter content="forEach" />回调的函数签名的。
+    实际上，你也可以在定义 <EnLetter content="v-for" />的变量别名时使用结构，和结构函数参数类似：</p>
+  <CodeView :content='`<li v-for="{ message } in items">
+  {{ message }}
+</li>
+
+<!-- 有 index 索引时 -->
+<li v-for="({ message }, index) in items">
+  {{ message }} {{ index }}
+</li>`' />
+
+<p>对于多层嵌套的<EnLetter content="v-for" />,作用域的工作方式和函数的作用域很类似。
+每个<EnLetter content="v-for" />作用域都可以访问到父级作用域：</p>
+
+<CodeView :content='`<li v-for="item in items">
+  <span v-for="childItem in item.children">
+    {{ item.message }} {{ childItem }}
+  </span>
+</li>`' />
+<p>你也可以使用<EnLetter content="of" />作为分隔符来替代<EnLetter content="in" />这更接近 JavaScript 的迭代器语法：</p>
+<CodeView :content='`<div v-for="item of items"></div>`' />
 </template>
