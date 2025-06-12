@@ -71,4 +71,28 @@ items.forEach((item, index) => {
 </li>`' />
 <p>你也可以使用<EnLetter content="of" />作为分隔符来替代<EnLetter content="in" />这更接近 JavaScript 的迭代器语法：</p>
 <CodeView :content='`<div v-for="item of items"></div>`' />
+
+<HeadingTwo heading="v-for与对象" />
+
+<p>你也可以使用<EnLetter content="v-for" />来遍历一个对象的所有属性。便利的顺序会给予对该对象调用<EnLetter content="Object.values()" />的返回值来决定。</p>
+<CodeView :content="`const myObject = reactive({
+  title: 'How to do lists in Vue',
+  author: 'Jane Doe',
+  publishedAt: '2016-04-10'
+})`" />
+<CodeView :content='`<ul>
+  <li v-for="value in myObject">
+    {{ value }}
+  </li>
+</ul>`' />
+
+<p>可以通过提供第二个参数表示属性名(例如key:)</p>
+<CodeView :content='`<li v-for="(value, key) in myObject">
+  {{ key }}: {{ value }}
+</li>`' />
+
+<p>第三个参数表示位置索引：</p>
+<CodeView :content='`<li v-for="(value, key, index) in myObject">
+  {{ index }}. {{ key }}: {{ value }}
+</li>`' />
 </template>
