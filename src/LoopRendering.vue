@@ -95,4 +95,10 @@ items.forEach((item, index) => {
 <CodeView :content='`<li v-for="(value, key, index) in myObject">
   {{ index }}. {{ key }}: {{ value }}
 </li>`' />
+
+<HeadingTwo heading="在 v-for 里使用范围值" />
+<p><EnLetter content="v-for" />可以直接接受一个整数值。在值中用例中，会将该模板给予<EnLetter content="1...n" />的取值范围重复多次。</p>
+
+<CodeView :content='`<span v-for="n in 10">{{ n }}</span>`' />
+<p>注意此处 <EnLetter content="n" />的初值时从<EnLetter content="1" />开始而非<EnLetter content="0" />。</p>
 </template>
