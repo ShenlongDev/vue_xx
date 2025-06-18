@@ -110,4 +110,20 @@ items.forEach((item, index) => {
     <li class="divider" role="presentation"></li>
   </template>
 </ul>`' />
+
+<HeadingTwo heading="v-for 与 v-if" />
+<p>当他们同时存在于一个节点上时，v-if比v-for的优先级更高。这意味着v-if的条件将无法访问到v-for作用域内定义的变量的别名。</p>
+<CodeView :content='`<!--
+ 这会抛出一个错误，因为属性 todo 此时
+ 没有在该实例上定义
+-->
+<li v-for="todo in todos" v-if="!todo.isComplete">
+  {{ todo.name }}
+</li>`' />
+<p>在外先包装一层<EnLetter content="<template>" />再在其上使用<EnLetter content="v-for" />可以解决这个问题（这也更加明显易读）。</p>
+<CodeView :content='`<template v-for="todo in todos">
+  <li v-if="!todo.isComplete">
+    {{ todo.name }}
+  </li>
+</template>`' />
 </template>
