@@ -95,4 +95,35 @@ items.forEach((item, index) => {
 <CodeView :content='`<li v-for="(value, key, index) in myObject">
   {{ index }}. {{ key }}: {{ value }}
 </li>`' />
+
+<HeadingTwo heading="在 v-for 里使用范围值" />
+<p><EnLetter content="v-for" />可以直接接受一个整数值。在值中用例中，会将该模板给予<EnLetter content="1...n" />的取值范围重复多次。</p>
+
+<CodeView :content='`<span v-for="n in 10">{{ n }}</span>`' />
+<p>注意此处 <EnLetter content="n" />的初值时从<EnLetter content="1" />开始而非<EnLetter content="0" />。</p>
+
+<HeadingTwo heading="<template> 上的 v-for" />
+<p>与模板上的 v-if 类似，你也可以在 <EnLetter content="<template>" /> 标签上使用 v-for 来渲染一个包含多个元素的块。例如：</p>
+<CodeView :content='`<ul>
+  <template v-for="item in items">
+    <li>{{ item.msg }}</li>
+    <li class="divider" role="presentation"></li>
+  </template>
+</ul>`' />
+
+<HeadingTwo heading="v-for 与 v-if" />
+<p>当他们同时存在于一个节点上时，v-if比v-for的优先级更高。这意味着v-if的条件将无法访问到v-for作用域内定义的变量的别名。</p>
+<CodeView :content='`<!--
+ 这会抛出一个错误，因为属性 todo 此时
+ 没有在该实例上定义
+-->
+<li v-for="todo in todos" v-if="!todo.isComplete">
+  {{ todo.name }}
+</li>`' />
+<p>在外先包装一层<EnLetter content="<template>" />再在其上使用<EnLetter content="v-for" />可以解决这个问题（这也更加明显易读）。</p>
+<CodeView :content='`<template v-for="todo in todos">
+  <li v-if="!todo.isComplete">
+    {{ todo.name }}
+  </li>
+</template>`' />
 </template>
