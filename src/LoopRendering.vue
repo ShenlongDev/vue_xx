@@ -101,4 +101,13 @@ items.forEach((item, index) => {
 
 <CodeView :content='`<span v-for="n in 10">{{ n }}</span>`' />
 <p>注意此处 <EnLetter content="n" />的初值时从<EnLetter content="1" />开始而非<EnLetter content="0" />。</p>
+
+<HeadingTwo heading="<template> 上的 v-for" />
+<p>与模板上的 v-if 类似，你也可以在 <EnLetter content="<template>" /> 标签上使用 v-for 来渲染一个包含多个元素的块。例如：</p>
+<CodeView :content='`<ul>
+  <template v-for="item in items">
+    <li>{{ item.msg }}</li>
+    <li class="divider" role="presentation"></li>
+  </template>
+</ul>`' />
 </template>
