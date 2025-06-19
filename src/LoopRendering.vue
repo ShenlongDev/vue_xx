@@ -2,6 +2,7 @@
 import CodeView from './components/CodeView.vue';
 import HeadingTwo from './components/HeadingTwo.vue';
 import EnLetter from './components/EnLetter.vue';
+import { computed } from 'vue';
 
 const parentMessage = 'Parent'
 const items = [
@@ -126,4 +127,29 @@ items.forEach((item, index) => {
     {{ todo.name }}
   </li>
 </template>`' />
+
+<HeadingTwo heading="通过key管理状态" />
+<p>Vue默认按照”就地更新“的策略来更新通过 v-for 渲染的元素列表。当数据顶的顺序改变时，Vue不会随之移动 DOM 元素的顺序，而是就地更新每个元素，确保他们在原本是定的索引位置上渲染。</p>
+<p>默认模式是高效的，但只适用于列表渲染输出的结果不依赖子组件状态或者临时 DOM 状态 (例如表单输入值) 的情况。</p>
+<p>为了给 Vue 一个提示，以便它可以跟踪每个节点的标识，从而重用和重新排序现有的元素，你需要为每个元素对应的块提供一个唯一的 key attribute：</p>
+<CodeView :content='`<div v-for="item in items" :key="item.id">
+  <!-- 内容 -->
+</div>`' />
+<p>当你使用 <EnLetter content="<template v-for>" /> 时，key 应该被放置在这个 <EnLetter content="<template>" /> 容器上：</p>
+<CodeView :content='`当你使用 <template v-for> 时，key 应该被放置在这个 <template> 容器上：`' />
+  <p>推荐在任何可行的时候为 v-for 提供一个 key attribute，除非所迭代的 DOM 内容非常简单 (例如：不包含组件或有状态的 DOM 元素)，或者你想有意采用默认行为来提高性能。</p>
+  <p>key 绑定的值期望是一个基础类型的值，例如字符串或 number 类型。不要用对象作为 v-for 的 key。关于 key attribute 的更多用途细节，请参阅 key API 文档。</p>
+
+<HeadingTwo heading="组件上使用 v-for" />
+<p>我们可以直接在组件上使用 v-for，和在一般的元素上使用没有区别 (别忘记提供一个 key)：</p>
+<CodeView :content='`<MyComponent v-for="item in items" :key="item.id" />`' />
+<p>但是，这不会自动将任何数据传递给组件，因为组件有自己独立的作用域。为了将迭代后的数据传递到组件中，我们还需要传递 props：</p>
+<CodeView :content='`<MyComponent
+  v-for="(item, index) in items"
+  :item="item"
+  :index="index"
+  :key="item.id"
+/>`' />
+<p>不自动将 item 注入组件的原因是，这会使组件与 v-for 的工作方式紧密耦合。明确其数据的来源可以使组件在其他情况下重用。</p>
+<p>这里是一个简单的 Todo List 的例子，展示了如何通过 v-for 来渲染一个组件列表，并向每个实例中传入不同的数据。</p>
 </template>
