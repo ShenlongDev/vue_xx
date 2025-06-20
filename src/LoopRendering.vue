@@ -152,4 +152,9 @@ items.forEach((item, index) => {
 />`' />
 <p>不自动将 item 注入组件的原因是，这会使组件与 v-for 的工作方式紧密耦合。明确其数据的来源可以使组件在其他情况下重用。</p>
 <p>这里是一个简单的 Todo List 的例子，展示了如何通过 v-for 来渲染一个组件列表，并向每个实例中传入不同的数据。</p>
+
+<HeadingTwo heading="数组变化侦测" />
+<h5>变更方法</h5>
+<p>Vue能够侦听响应式数组的变更方法，并在他们被调用时触发相关的更新。这些变更方法包括：</p>
+<CodeView :content='`push()、pop()、shift()、unshift()、splice()、sort()、reverse()`' />
 </template>
