@@ -157,4 +157,11 @@ items.forEach((item, index) => {
 <h5>变更方法</h5>
 <p>Vue能够侦听响应式数组的变更方法，并在他们被调用时触发相关的更新。这些变更方法包括：</p>
 <CodeView :content='`push()、pop()、shift()、unshift()、splice()、sort()、reverse()`' />
+<h5>替换一个数组</h5>
+<p>变更方法，顾名思义，就是会对调用他们的原数组进行变更。相对地，也有一些不可变方法，例如 filter(), concat(), slice()
+  这些都不会更改原数组，而说时返回一个新数组。当遇到的是非变更方法时，我们需要将旧的数组替换为新的：
+</p>
+<CodeView :content='`// items 是一个数组的 ref
+items.value = items.value.filter((item) => item.message.match(/Foo/))`' />
+<p>你可能认为这将导致 Vue 丢弃现有的 DOM 并重新渲染整个列表——幸运的是，情况并非如此。Vue 实现了一些巧妙的方法来最大化对 DOM 元素的重用，因此用另一个包含部分重叠对象的数组来做替换，仍会是一种非常高效的操作。</p>
 </template>
