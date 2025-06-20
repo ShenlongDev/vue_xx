@@ -152,4 +152,45 @@ items.forEach((item, index) => {
 />`' />
 <p>不自动将 item 注入组件的原因是，这会使组件与 v-for 的工作方式紧密耦合。明确其数据的来源可以使组件在其他情况下重用。</p>
 <p>这里是一个简单的 Todo List 的例子，展示了如何通过 v-for 来渲染一个组件列表，并向每个实例中传入不同的数据。</p>
+
+<HeadingTwo heading="数组变化侦测" />
+<h5>变更方法</h5>
+<p>Vue能够侦听响应式数组的变更方法，并在他们被调用时触发相关的更新。这些变更方法包括：</p>
+<CodeView :content='`push()、pop()、shift()、unshift()、splice()、sort()、reverse()`' />
+<h5>替换一个数组</h5>
+<p>变更方法，顾名思义，就是会对调用他们的原数组进行变更。相对地，也有一些不可变方法，例如 filter(), concat(), slice()
+  这些都不会更改原数组，而说时返回一个新数组。当遇到的是非变更方法时，我们需要将旧的数组替换为新的：
+</p>
+<CodeView :content='`// items 是一个数组的 ref
+items.value = items.value.filter((item) => item.message.match(/Foo/))`' />
+<p>你可能认为这将导致 Vue 丢弃现有的 DOM 并重新渲染整个列表——幸运的是，情况并非如此。Vue 实现了一些巧妙的方法来最大化对 DOM 元素的重用，因此用另一个包含部分重叠对象的数组来做替换，仍会是一种非常高效的操作。</p>
+
+<HeadingTwo heading="展示过滤或排序后的结果" />
+<p>有时，我们希望显示数组经过过滤或排序后的内容，而不实际变更或重置原始数据。在这种情况下，你可以创建返回已过滤或已排序数组的计算属性。</p>
+<p>举例来说：</p>
+<CodeView :content='`const numbers = ref([1, 2, 3, 4, 5])
+
+const evenNumbers = computed(() => {
+  return numbers.value.filter((n) => n % 2 === 0)
+})`' />
+<CodeView :content='`<li v-for="n in evenNumbers">{{ n }}</li>`' />
+  <p>在计算属性不可行的情况下 (例如在多层嵌套的 v-for 循环中)，你可以使用以下方法：</p>
+  <CodeView :content='`const sets = ref([
+  [1, 2, 3, 4, 5],
+  [6, 7, 8, 9, 10]
+])
+
+function even(numbers) {
+  return numbers.filter((number) => number % 2 === 0)
+}`' />
+  <CodeView :content='`<ul v-for="numbers in sets">
+  <li v-for="n in even(numbers)">{{ n }}</li>
+</ul>`' />
+<p>在计算属性中使用 reverse() 和 sort() 的时候务必小心！这两个方法将变更原始数组，计算函数中不应该这么做。请在调用这些方法之前创建一个原数组的副本：</p>
+  <CodeView :content='`<ul v-for="numbers in sets">
+  <li v-for="n in even(numbers)">{{ n }}</li>
+</ul>`' />
+<p>在计算属性中使用 reverse() 和 sort() 的时候务必小心！这两个方法将变更原始数组，计算函数中不应该这么做。请在调用这些方法之前创建一个原数组的副本：</p>
+  <CodeView :content='`- return numbers.reverse()
++ return [...numbers].reverse()`' />
 </template>
