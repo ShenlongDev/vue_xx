@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 import ButtonCounter from '@/components/ButtonCounter.vue'
 import BlogPost from '@/components/BlogPost.vue'
+import AlertBox from '@/components/AlertBox.vue'
 
 const count = ref(0)
 
@@ -15,6 +16,28 @@ const postFontSize = ref(1)
 </script>
 
 <template>
+  <h2>通过插槽来分配内容</h2>
+  <p>一些情况下我们会希望能和 HTML 元素一样向组件中传递内容</p>
+
+  <AlertBox>
+    Something bad happened.
+  </AlertBox>
+
+  我们期望能渲染成这样：
+
+This is an Error for Demo Purposes
+
+Something bad happened.
+
+这可以通过 Vue 的自定义  元素来实现：
+
+  如上所示，我们使用
+ 作为一个占位符，父组件传递进来的内容就会渲染在这里。
+
+在演练场中尝试一下
+
+以上就是目前你需要了解的关于插槽的所有知识了。如果你看完本章节后还想知道更多细节，请深入阅读组件插槽章节。
+
   <h2>监听事件</h2>
   <p>让我们继续关注我们的 BlogPost 组件。</p>
   <p>我会发现有时候它需要与父组件进行交互。</p>
