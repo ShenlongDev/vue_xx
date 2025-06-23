@@ -1,8 +1,15 @@
 <script setup>
 import { ref } from 'vue'
 import ButtonCounter from '@/components/ButtonCounter.vue'
+import BlogPost from '@/components/BlogPost.vue'
 
 const count = ref(0)
+
+const posts = ref([
+  { id: 1, title: 'My journey with Vue' },
+  { id: 2, title: 'Blogging with Vue' },
+  { id: 3, title: 'Why Vue is so fun' }
+])
 </script>
 
 <template>
@@ -51,4 +58,20 @@ const count = ref(0)
   <p>defineProps 是一个仅 script setup 中可用的编译宏命令，并不需要显示地导入。</p>
   <p>生命的 props 会自动暴露给模板。</p>
   <p>defineProps 会返回一个对象，其中包含了可以传递给组件的所有 props：</p>
+  <p>当一个Prop被注册的后，可以想这样自定义 attribute 的形式床底数据给它：</p>
+
+  <BlogPost title="My journey with Vue" />
+  <BlogPost title="Blogging with Vue" />
+  <BlogPost title="Why Vue is so fun" />
+
+  <p>在实际应用中，我们可以能在父组件中会有如下的一个博客文章数组：</p>
+
+  <BlogPost
+    v-for="post in posts"
+    :key="post.id"
+    :title="post.title"
+  />
+
+  <p>留意我们是如何使用 v-bind 语法 (:title="post.title") 来传递动态 prop 值的。当事先不知道要渲染的确切内容时，这一点特别有用。</p>
+  <p>以上就是目前你需要了解的关于 props 的全部了。如果你看完本章节后还想知道更多细节，我们推荐你深入阅读关于 props 的完整指引。</p>
 </template>
