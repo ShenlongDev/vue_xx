@@ -1,5 +1,9 @@
+<!-- BlogPost.vue -->
 <script setup>
-defineProps(['title', 'content'])
+defineProps(['title'])
+const emit = defineEmits(['enlarge-text'])
+
+emit('enlarge-text')
 </script>
 
 <!-- BlogPost.vue, 省略了 <script> -->
