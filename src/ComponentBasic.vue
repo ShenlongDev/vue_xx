@@ -10,9 +10,31 @@ const posts = ref([
   { id: 2, title: 'Blogging with Vue' },
   { id: 3, title: 'Why Vue is so fun' }
 ])
+
+const postFontSize = ref(1)
 </script>
 
 <template>
+  <h2>监听事件</h2>
+  <p>让我们继续关注我们的 BlogPost 组件。</p>
+  <p>我会发现有时候它需要与父组件进行交互。</p>
+  <p>例如，要在此处实现无障碍访问的需求，将博客文章的文字能够放大，而页面的其余部分仍使用默认字号。</p>
+  <p>在父组件中，我们可以添加一个 postFontSize ref 来实现这个效果：</p>
+
+  <div :style="{ fontSize: postFontSize + 'em' }">
+    <BlogPost
+      v-for="post in posts"
+      :key="post.id"
+      :title="post.title"
+      @enlarge-text="postFontSize += 0.1"
+    />
+  </div>
+
+  <p>然后，给 BlogPost 组件添加一个按钮：</p>
+  这个按钮目前还没有做任何事情，我们想要点击这个按钮来告诉父组件它应该放大所有博客文章的文字。要解决这个问题，组件实例提供了一个自定义事件系统。父组件可以通过 v-on 或 @ 来选择性地监听子组件上抛的事件，就像监听原生 DOM 事件那样：
+
+  因为有了 @enlarge-text="postFontSize += 0.1" 的监听，父组件会接收这一事件，从而更新 postFontSize 的值。
+
   <h1>组件基础</h1>
   <p>组件允许我们将 UI 划分为独立的、可重用的部分，并且可以对每个部分进行单独的思考。</p>
   <p>在实际应用中，组件常常被组织成一个层层嵌套的树状结构：</p>
