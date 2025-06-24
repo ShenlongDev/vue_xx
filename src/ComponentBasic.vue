@@ -3,6 +3,9 @@ import { ref } from 'vue'
 import ButtonCounter from '@/components/ButtonCounter.vue'
 import BlogPost from '@/components/BlogPost.vue'
 import AlertBox from '@/components/AlertBox.vue'
+import Home from '@/components/tabs/HomeTab.vue'
+import Posts from '@/components/tabs/PostsTab.vue'
+import Archive from '@/components/tabs/ArchiveTab.vue'
 
 const count = ref(0)
 
@@ -13,11 +16,38 @@ const posts = ref([
 ])
 
 const postFontSize = ref(1)
+
+const currentTab = ref('Home')
+
+const tabs = {
+  Home,
+  Posts,
+  Archive
+}
 </script>
 
 <template>
+  <h2>动态组件</h2>
+  <p>有些场景会需要在两个组件间来会间切换，比如 Tab 界面：</p>
+  <p>上面的列子时通过 Vue component 元素和特殊的 is attribute 实现的：</p>
+
+  <div class="demo">
+    <button
+       v-for="(_, tab) in tabs"
+       :key="tab"
+       :class="['tab-button', { active: currentTab === tab }]"
+       @click="currentTab = tab"
+     >
+      {{ tab }}
+    </button>
+	  <component :is="tabs[currentTab]" class="tab"></component>
+  </div>
+
+  <p>在上面的例子中，传给 ；is的值可以时一下几种：</p>
+
   <h2>通过插槽来分配内容</h2>
   <p>一些情况下我们会希望能和 HTML 元素一样向组件中传递内容</p>
+  当使用 <component :is="..."> 来在多个组件间作切换时，被切换掉的组件会被卸载。我们可以通过 KeepAlive 组件强制被切换掉的组件仍然保持“存活”的状态。
 
   <AlertBox>
     Something bad happened.
