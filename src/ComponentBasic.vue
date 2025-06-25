@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import ButtonCounter from '@/components/ButtonCounter.vue'
-import BlogPost from '@/components/BlogPost.vue'
+// import BlogPost from '@/components/BlogPost.vue'
 import AlertBox from '@/components/AlertBox.vue'
 import Home from '@/components/tabs/HomeTab.vue'
 import Posts from '@/components/tabs/PostsTab.vue'
@@ -24,12 +24,55 @@ const tabs = {
   Posts,
   Archive
 }
+
+// JavaScript 中的 camelCase
+const BlogPost = {
+  props: ['postTitle'],
+  emits: ['updatePost'],
+  template: `
+    <h3>{{ postTitle }}</h3>
+  `
+}
 </script>
 
 <template>
   <h2>DOM内模板解析注意事项</h2>
   <p>如果你想在DOM中直接书写Vue模板，Vue必须从DOM中获取模板字符串。</p>
   <p>由于浏览器的原生 HTML 解析行为限制，有一些需要注意的事项。</p>
+  <h3>大小写区分</h3>
+  <p>HTML 标签和属性名称是部分大小写的，所以浏览器会把任何大写的字符解释为小写。</p>
+  <p>这意味着当你使用 DOM 内的模板时，无论是 PascalCase 形式的组件名称，camelCase 形式的 prop 名称还是 v-on 的时间名称，都需要转换为相当等价于的 kebab-case （短横线链子）形式：</p>
+  <!-- HTML 中的 kebab-case -->
+  <blog-post post-title="hello!" @update-post="onUpdatePost"></blog-post>
+  <h3>闭合标签</h3>
+  <p>我们在上面的例子中已经使用过了闭合标签（self-closing-tag）</p>
+  <MyComponent />
+  <p>这是因为 Vue 的模板解析器支持任意标签使用 /》作为标签关闭的标志。</p>
+  <p>然而在 DOM 内模板中，我们必须显示地写出关闭标签：</p>
+  <my-component></my-component>
+  <p>这是由于 HTML 只允许一小部分特殊的元素省略其关闭标签，最常见的就是 input 和 img。</p>
+  <p>对于其他的元素来说，如果你省略了关闭标签，原生的 HTML 解析器会认为开启的标签永远没有结束，用下面这个代码篇段举例来说：</p>
+  <my-component /> <!-- 我们想要在这里关闭标签... -->
+  <span>hello</span>
+  <p>将被解析为：</p>
+  <my-component>
+  <span>hello</span>
+  </my-component> <!-- 但浏览器会在这里关闭标签 -->
+  <h3>元素位置限制</h3>
+  <p>某些 HTML 元素对于放在其中的元素类型有限制，例如 ul，ol, table, select</p>
+  <p>相应的，某些元素建在放置于特定的元素是才会显示， 例如 li，tr，option。</p>
+  <p>这将导致在使用带有此类限制元素的组件时出现问题。例如：</p>
+  <table>
+    <blog-post-row></blog-post-row>
+  </table>
+  <p>自定义的组件 blog-post-row 将作为无效的内容被忽略，因而在最终呈现的输出中造成错误。我们可以使用特殊的 is attribute 作为一种解决方案：</p>
+  <table>
+    <tr is="vue:blog-post-row"></tr>
+  </table>
+  <p>以上就是你需要了解的关于 DOM 内模板解析的所有注意事项，同时也是 Vue 基础部分的所有内容。祝贺你！虽然还有很多需要学习的，但你可以先暂停一下，去用 Vue 做一些有趣的东西，或者研究一些示例。
+
+完成了本页的阅读后，回顾一下你刚才所学到的知识，如果还想知道更多细节，我们推荐你继续阅读关于组件的完整指引。</p>
+
   <h2>动态组件</h2>
   <p>有些场景会需要在两个组件间来会间切换，比如 Tab 界面：</p>
   <p>上面的列子时通过 Vue component 元素和特殊的 is attribute 实现的：</p>
