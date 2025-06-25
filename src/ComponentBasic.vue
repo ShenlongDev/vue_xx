@@ -1,7 +1,7 @@
 <script setup>
 import { ref } from 'vue'
 import ButtonCounter from '@/components/ButtonCounter.vue'
-import BlogPost from '@/components/BlogPost.vue'
+// import BlogPost from '@/components/BlogPost.vue'
 import AlertBox from '@/components/AlertBox.vue'
 import Home from '@/components/tabs/HomeTab.vue'
 import Posts from '@/components/tabs/PostsTab.vue'
@@ -24,12 +24,27 @@ const tabs = {
   Posts,
   Archive
 }
+
+// JavaScript 中的 camelCase
+const BlogPost = {
+  props: ['postTitle'],
+  emits: ['updatePost'],
+  template: `
+    <h3>{{ postTitle }}</h3>
+  `
+}
 </script>
 
 <template>
   <h2>DOM内模板解析注意事项</h2>
   <p>如果你想在DOM中直接书写Vue模板，Vue必须从DOM中获取模板字符串。</p>
   <p>由于浏览器的原生 HTML 解析行为限制，有一些需要注意的事项。</p>
+  <h3>大小写区分</h3>
+  <p>HTML 标签和属性名称是部分大小写的，所以浏览器会把任何大写的字符解释为小写。</p>
+  <p>这意味着当你使用 DOM 内的模板时，无论是 PascalCase 形式的组件名称，camelCase 形式的 prop 名称还是 v-on 的时间名称，都需要转换为相当等价于的 kebab-case （短横线链子）形式：</p>
+  <!-- HTML 中的 kebab-case -->
+  <blog-post post-title="hello!" @update-post="onUpdatePost"></blog-post>
+
   <h2>动态组件</h2>
   <p>有些场景会需要在两个组件间来会间切换，比如 Tab 界面：</p>
   <p>上面的列子时通过 Vue component 元素和特殊的 is attribute 实现的：</p>
