@@ -44,6 +44,20 @@ const BlogPost = {
   <p>这意味着当你使用 DOM 内的模板时，无论是 PascalCase 形式的组件名称，camelCase 形式的 prop 名称还是 v-on 的时间名称，都需要转换为相当等价于的 kebab-case （短横线链子）形式：</p>
   <!-- HTML 中的 kebab-case -->
   <blog-post post-title="hello!" @update-post="onUpdatePost"></blog-post>
+  <h3>闭合标签</h3>
+  <p>我们在上面的例子中已经使用过了闭合标签（self-closing-tag）</p>
+  <MyComponent />
+  <p>这是因为 Vue 的模板解析器支持任意标签使用 /》作为标签关闭的标志。</p>
+  <p>然而在 DOM 内模板中，我们必须显示地写出关闭标签：</p>
+  <my-component></my-component>
+  <p>这是由于 HTML 只允许一小部分特殊的元素省略其关闭标签，最常见的就是 input 和 img。</p>
+  <p>对于其他的元素来说，如果你省略了关闭标签，原生的 HTML 解析器会认为开启的标签永远没有结束，用下面这个代码篇段举例来说：</p>
+  <my-component /> <!-- 我们想要在这里关闭标签... -->
+  <span>hello</span>
+  <p>将被解析为：</p>
+  <my-component>
+  <span>hello</span>
+  </my-component> <!-- 但浏览器会在这里关闭标签 -->
 
   <h2>动态组件</h2>
   <p>有些场景会需要在两个组件间来会间切换，比如 Tab 界面：</p>
