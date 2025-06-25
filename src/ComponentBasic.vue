@@ -27,6 +27,9 @@ const tabs = {
 </script>
 
 <template>
+  <h2>DOM内模板解析注意事项</h2>
+  <p>如果你想在DOM中直接书写Vue模板，Vue必须从DOM中获取模板字符串。</p>
+  <p>由于浏览器的原生 HTML 解析行为限制，有一些需要注意的事项。</p>
   <h2>动态组件</h2>
   <p>有些场景会需要在两个组件间来会间切换，比如 Tab 界面：</p>
   <p>上面的列子时通过 Vue component 元素和特殊的 is attribute 实现的：</p>
@@ -47,7 +50,7 @@ const tabs = {
 
   <h2>通过插槽来分配内容</h2>
   <p>一些情况下我们会希望能和 HTML 元素一样向组件中传递内容</p>
-  当使用 <component :is="..."> 来在多个组件间作切换时，被切换掉的组件会被卸载。我们可以通过 KeepAlive 组件强制被切换掉的组件仍然保持“存活”的状态。
+  当使用 component :is="..." 来在多个组件间作切换时，被切换掉的组件会被卸载。我们可以通过 KeepAlive 组件强制被切换掉的组件仍然保持“存活”的状态。
 
   <AlertBox>
     Something bad happened.
