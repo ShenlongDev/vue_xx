@@ -1,4 +1,7 @@
 <script setup>
+import { ref } from 'vue'
+
+const cnt = ref(0)
 </script>
 
 <template>
@@ -12,4 +15,8 @@
     <b>1.内联事件处理器</b>：事件被触发时执行的内联 JavaScript 语句 (与 onclick 类似)。
     <b>2.方法事件处理器</b>：一个指向组件上定义的方法的属性名或是路径。
   </p>
+
+  <h2>内联事件处理器</h2>
+  <button @click="cnt++">Add 1</button>
+  <p>The button above has been clicked {{ cnt }} times.</p>
 </template>
