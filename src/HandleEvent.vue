@@ -65,9 +65,26 @@ function warn(message, event) {
   <button @click="warn('Form cannot be submitted yet.', $event)">
     Submit
   </button>
-
   <!-- 使用内联箭头函数 -->
   <button @click="(event) => warn('Form cannot be submitted yet.', event)">
     Submit
   </button>
+
+  <h2>事件修饰符</h2>
+  <p>在处理事件时调用 event.preventDefault() 或 event.stopPropagation() 是很常见的。</p>
+  <p>尽管我们可以直接在方法内调用，但如果方法能更专注于数据逻辑而不用去处理 DOM 事件的细节会更好。</p>
+  <p>为解决这一问题，Vue为 v-on 提供了事件修饰符。</p>
+  <p>修饰符是用 . 表示的指令后缀，包含以下这些：</p>
+  <p>stop prevent self capture once passive</p>
+  <!-- 单击事件将停止传递 -->
+  <a @click.stop="doThis"></a>
+  <!-- 提交事件将不再重新加载页面 -->
+  <form @submit.prevent="onSubmit"></form>
+  <!-- 修饰语可以使用链式书写 -->
+  <a @click.stop.prevent="doThat"></a>
+  <!-- 也可以只有修饰符 -->
+  <form @submit.prevent></form>
+  <!-- 仅当 event.target 是元素本身时才会触发事件处理器 -->
+  <!-- 例如：事件处理器不来自子元素 -->
+  <div @click.self="doThat">...</div>
 </template>
