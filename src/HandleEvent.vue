@@ -11,6 +11,10 @@ function greeting(event) {
     alert(event.target.tagName)
   }
 }
+
+function say(message) {
+  alert(message)
+}
 </script>
 
 <template>
@@ -39,4 +43,10 @@ function greeting(event) {
   <h3>方法与内联事件判断</h3>
   <p>模板编译器会通过检查 v-on 的值是否是合法的 JavaScript 标识符或属性访问路径来断定是何种形式的事件处理器。</p>
   <p>举例来说，foo、foo.bar 和 foo['bar'] 会被视为方法事件处理器，而 foo() 和 count++ 会被视为内联事件处理器。</p>
+
+  <h2>在内联处理器中调用方法</h2>
+  <p>除了直接绑定方法名，你还可以在内联事件处理器中调用方法。</p>
+  <p>这允许我们向方法传入自定义参数以代替原生事件：</p>
+  <button @click="say('hello')">Say hello</button>
+  <button @click="say('bye')">Say bye</button>
 </template>
