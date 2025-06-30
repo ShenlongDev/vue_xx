@@ -27,4 +27,13 @@ const message = ref('')
   <h3>文本</h3>
   <p>Message is: {{ message }}</p>
   <input v-model="message" placeholder="edit me" />
+  <h3>多行文本</h3>
+  <span>Multiline message is:</span>
+  <p style="white-space: pre-line;">{{ message }}</p>
+  <textarea v-model="message" placeholder="add multiple lines"></textarea>
+  <p>注意在 textarea 中是不支持插值表达式的。请使用 v-model 来替代：</p>
+  <!-- 错误 -->
+  <textarea>{{ text }}</textarea>
+  <!-- 正确 -->
+  <textarea v-model="text"></textarea>
 </template>
