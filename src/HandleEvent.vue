@@ -96,4 +96,27 @@ function warn(message, event) {
   <p>你可以直接使用 KeyboardEvent.key 暴露的按键名称作为修饰符，但需要转为 kebab-case 形式。</p>
   <input @keyup.page-down="onPageDown" />
   <p>在上面的例子中，仅会在 $event.key 为 'PageDown' 时调用事件处理。</p>
+  <h3>按键别名</h3>
+  <p>Vue 为一些常用的按键提供了别名：</p>
+  <h3>系统按键修饰符</h3>
+  <p>你可以使用以下系统按键修饰符来触发鼠标或键盘事件监听器，只有当按键被按下时才会触发。</p>
+  <!-- Alt + Enter -->
+  <input @keyup.alt.enter="clear" />
+  <!-- Ctrl + 点击 -->
+  <div @click.ctrl="doSomething">Do something</div>
+  <!-- 当按下 Ctrl 时，即使同时按下 Alt 或 Shift 也会触发 -->
+  <button @click.ctrl="onClick">A</button>
+  <!-- 仅当按下 Ctrl 且未按任何其他键时才会触发 -->
+  <button @click.ctrl.exact="onCtrlClick">A</button>
+  <!-- 仅当没有按下任何系统按键时触发 -->
+  <button @click.exact="onClick">A</button>
+
+  <h2>鼠标按键修饰符</h2>
+  <p>
+    这些修饰符将处理程序限定为由特定鼠标按键触发的事件。<br>
+    但请注意，.left，.right 和 .middle 这些修饰符名称是基于常见的右手用鼠标布局设定的，但实际上它们分别指代设备事件触发器的“主”、”次“，“辅助”，而非实际的物理按键。<br>
+    因此，对于左手用鼠标布局而言，“主”按键在物理上可能是右边的按键，但却会触发 .left 修饰符对应的处理程序。<br>
+    又或者，触控板可能通过单指点击触发 .left 处理程序，通过双指点击触发 .right 处理程序，通过三指点击触发 .middle 处理程序。<br>
+    同样，产生“鼠标”事件的其他设备和事件源，也可能具有与“左”，“右”完全无关的触发模式。
+  </p>
 </template>
