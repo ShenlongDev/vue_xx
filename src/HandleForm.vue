@@ -2,6 +2,7 @@
 import { ref } from 'vue'
 
 const text = ref('')
+const message = ref('')
 </script>
 
 <template>
@@ -21,4 +22,9 @@ const text = ref('')
     <li>checkbox 和 radio 会绑定 checked property 并侦听 change 事件；</li>
     <li>select 会绑定 value property 并侦听 change 事件。</li>
   </ol>
+
+  <h2>基本用法</h2>
+  <h3>文本</h3>
+  <p>Message is: {{ message }}</p>
+  <input v-model="message" placeholder="edit me" />
 </template>
