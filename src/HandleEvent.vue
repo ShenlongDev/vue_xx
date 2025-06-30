@@ -15,6 +15,14 @@ function greeting(event) {
 function say(message) {
   alert(message)
 }
+
+function warn(message, event) {
+  // 这里可以访问原生事件
+  if (event) {
+    event.preventDefault()
+  }
+  alert(message)
+}
 </script>
 
 <template>
@@ -49,4 +57,17 @@ function say(message) {
   <p>这允许我们向方法传入自定义参数以代替原生事件：</p>
   <button @click="say('hello')">Say hello</button>
   <button @click="say('bye')">Say bye</button>
+
+  <h2>在内联事件处理器中访问事件参数</h2>
+  <p>有时我们需要在内联事件处理器中访问原生 DOM 事件。</p>
+  <p>你可以向该处理器方法传入一个特殊的 $event 变量，或者使用内联箭头函数。</p>
+  <!-- 使用特殊的 $event 变量 -->
+  <button @click="warn('Form cannot be submitted yet.', $event)">
+    Submit
+  </button>
+
+  <!-- 使用内联箭头函数 -->
+  <button @click="(event) => warn('Form cannot be submitted yet.', event)">
+    Submit
+  </button>
 </template>
