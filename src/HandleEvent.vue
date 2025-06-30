@@ -87,4 +87,13 @@ function warn(message, event) {
   <!-- 仅当 event.target 是元素本身时才会触发事件处理器 -->
   <!-- 例如：事件处理器不来自子元素 -->
   <div @click.self="doThat">...</div>
+
+  <h2>按键修饰符</h2>
+  <p>在监听键盘事件时，我们经常需要检查特定的按键。</p>
+  <p>Vue 允许在 v-on 或 @ 监听按键事件时添加按键修饰符</p>
+  <!-- 仅在 `key` 为 `Enter` 时调用 `submit` -->
+  <input @keyup.enter="submit" />
+  <p>你可以直接使用 KeyboardEvent.key 暴露的按键名称作为修饰符，但需要转为 kebab-case 形式。</p>
+  <input @keyup.page-down="onPageDown" />
+  <p>在上面的例子中，仅会在 $event.key 为 'PageDown' 时调用事件处理。</p>
 </template>
