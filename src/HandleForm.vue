@@ -3,6 +3,7 @@ import { ref } from 'vue'
 
 const text = ref('')
 const message = ref('')
+const checkedNames = ref([])
 </script>
 
 <template>
@@ -36,4 +37,17 @@ const message = ref('')
   <textarea>{{ text }}</textarea>
   <!-- 正确 -->
   <textarea v-model="text"></textarea>
+  <h3>复选框</h3>
+  <p>单一的复选框，绑定布尔类型值：</p>
+  <input type="checkbox" id="checkbox" v-model="checked" />
+  <label for="checkbox">{{ checked }}</label>
+  <p>我们也可以将多个复选框绑定到同一个数组或集合的值：</p>
+  <div>Checked names: {{ checkedNames }}</div>
+  <input type="checkbox" id="jack" value="Jack" v-model="checkedNames" />
+  <label for="jack">Jack</label>
+  <input type="checkbox" id="john" value="John" v-model="checkedNames" />
+  <label for="john">John</label>
+  <input type="checkbox" id="mike" value="Mike" v-model="checkedNames" />
+  <label for="mike">Mike</label>
+  <p>在这个例子中，checkedNames 数组将始终包含所有当前被选中的框的值。</p>
 </template>
