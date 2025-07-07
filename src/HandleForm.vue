@@ -4,6 +4,14 @@ import { ref } from 'vue'
 const text = ref('')
 const message = ref('')
 const checkedNames = ref([])
+
+const selected = ref('A')
+
+const options = ref([
+  { text: 'One', value: 'A' },
+  { text: 'Two', value: 'B' },
+  { text: 'Three', value: 'C' }
+])
 </script>
 
 <template>
@@ -71,5 +79,11 @@ const checkedNames = ref([])
     <option>B</option>
     <option>C</option>
   </select>
-
+  <p>选择器的选项可以使用 v-for 动态渲染</p>
+  <select v-model="selected">
+    <option v-for="(index, option) in options" :key="index" :value="option.value" :label="option.text">
+      {{ option.text }}
+    </option>
+  </select>
+  <div>Selected: {{ selected }}</div>
 </template>
