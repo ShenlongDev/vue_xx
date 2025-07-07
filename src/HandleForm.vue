@@ -12,6 +12,8 @@ const options = ref([
   { text: 'Two', value: 'B' },
   { text: 'Three', value: 'C' }
 ])
+
+const lazymsg = ref('')
 </script>
 
 <template>
@@ -117,4 +119,29 @@ const options = ref([
   <input type="radio" v-model="pick" :value="first" />
   <input type="radio" v-model="pick" :value="second" />
   <p>pick 会在第一个按钮选中时被设为 first，在第二个按钮选中时被设为 second。</p>
+  <h3>选择器选项</h3>
+    <select v-model="selected">
+    <!-- 内联对象字面量 -->
+    <option :value="{ number: 123 }">123</option>
+  </select>
+  <p>v-model 同样也支持非字符串类型的值绑定！在上面这个例子中，当某个选项被选中，selected 会被设为该对象字面量值 { number: 123 }。</p>
+
+  <h2>修饰符</h2>
+  <h3>.lazy</h3>
+  <p>默认情况下，v-model 会在每次 input 事件后更新数据。</p>
+  <p>你可以加 lazy 修饰符来改为在每次 change 事件后更新数据。</p>
+  <!-- 在 "change" 事件后同步更新而不是 "input" -->
+  <input v-model.lazy="lazymsg" @input="console.log(lazymsg)" @change="console.log(lazymsg)" />
+  <h3>.number</h3>
+  <p>如果你想让用户输入自动转换为数字，你可以在 v-model 后添加 .number 修饰符来管理输入：</p>
+  <input v-model.number="age" />
+  <p>如果该值无法被 parseFloat() 处理，那么将返回原始值。特别是当输入为空时 (例如用户清空输入字段之后)，会返回一个空字符串。这种行为与 DOM 属性 valueAsNumber 有所不同。number 修饰符会在输入框有 type="number" 时自动启用。</p>
+  <h3>.trim</h3>
+  <p>如果你想要默认自动去除用户输入内容中两端的空格，你可以在 v-model 后添加 .trim 修饰符：</p>
+  <input v-model.trim="msg" />
+
+  <h2>组件上的 v-model</h2>
+  <p>HTML 的内置表单输入类型并不总能满足所有需求。</p>
+  <p>幸运的是，我们可以使用 Vue 构建具有自定义行为的可复用输入组件，并且这些输入组件也支持 v-model！</p>
+  <p>要了解更多关于此的内容，请在组件指引中阅读配合 v-model 使用。</p>
 </template>
