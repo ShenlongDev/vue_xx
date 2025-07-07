@@ -113,4 +113,8 @@ const options = ref([
   v-model="toggle"
   :true-value="dynamicTrueValue"
   :false-value="dynamicFalseValue" />
+  <h3>单选按钮</h3>
+  <input type="radio" v-model="pick" :value="first" />
+  <input type="radio" v-model="pick" :value="second" />
+  <p>pick 会在第一个按钮选中时被设为 first，在第二个按钮选中时被设为 second。</p>
 </template>
