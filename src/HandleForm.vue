@@ -86,4 +86,19 @@ const options = ref([
     </option>
   </select>
   <div>Selected: {{ selected }}</div>
+
+  <h2>值绑定</h2>
+  <p>对于单选按钮，复选框和选择器选项，v-model 绑定的值通常是静态的字符串（或者对复选框是布尔值）：</p>
+  <!-- `picked` 在被选择时是字符串 "a" -->
+  <input type="radio" v-model="picked" value="a" />
+  <!-- `toggle` 只会为 true 或 false -->
+  <input type="checkbox" v-model="toggle" />
+  <!-- `selected` 在第一项被选中时为字符串 "abc" -->
+  <select v-model="selected">
+    <option value="abc">ABC</option>
+  </select>
+  <p>但有时我们可能希望将该值绑定到当前组件实例上的动态数据。
+    这可以通过使用 v-bind 来实现。
+    此外，使用 v-bind 还使我们可以将选项值绑定为非字符串的数据类型。
+  </p>
 </template>
