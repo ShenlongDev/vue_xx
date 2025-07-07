@@ -132,4 +132,8 @@ const lazymsg = ref('')
   <p>你可以加 lazy 修饰符来改为在每次 change 事件后更新数据。</p>
   <!-- 在 "change" 事件后同步更新而不是 "input" -->
   <input v-model.lazy="lazymsg" @input="console.log(lazymsg)" @change="console.log(lazymsg)" />
+  <h3>.number</h3>
+  <p>如果你想让用户输入自动转换为数字，你可以在 v-model 后添加 .number 修饰符来管理输入：</p>
+  <input v-model.number="age" />
+  <p>如果该值无法被 parseFloat() 处理，那么将返回原始值。特别是当输入为空时 (例如用户清空输入字段之后)，会返回一个空字符串。这种行为与 DOM 属性 valueAsNumber 有所不同。number 修饰符会在输入框有 type="number" 时自动启用。</p>
 </template>
