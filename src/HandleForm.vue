@@ -50,4 +50,10 @@ const checkedNames = ref([])
   <input type="checkbox" id="mike" value="Mike" v-model="checkedNames" />
   <label for="mike">Mike</label>
   <p>在这个例子中，checkedNames 数组将始终包含所有当前被选中的框的值。</p>
+  <h3>单选按钮</h3>
+  <div>Picked: {{ picked }}</div>
+  <input type="radio" id="one" value="One" v-model="picked" />
+  <label for="one">One</label>
+  <input type="radio" id="two" value="Two" v-model="picked" />
+  <label for="two">Two</label>
 </template>
