@@ -12,6 +12,8 @@ const options = ref([
   { text: 'Two', value: 'B' },
   { text: 'Three', value: 'C' }
 ])
+
+const lazymsg = ref('')
 </script>
 
 <template>
@@ -123,4 +125,11 @@ const options = ref([
     <option :value="{ number: 123 }">123</option>
   </select>
   <p>v-model 同样也支持非字符串类型的值绑定！在上面这个例子中，当某个选项被选中，selected 会被设为该对象字面量值 { number: 123 }。</p>
+
+  <h2>修饰符</h2>
+  <h3>.lazy</h3>
+  <p>默认情况下，v-model 会在每次 input 事件后更新数据。</p>
+  <p>你可以加 lazy 修饰符来改为在每次 change 事件后更新数据。</p>
+  <!-- 在 "change" 事件后同步更新而不是 "input" -->
+  <input v-model.lazy="lazymsg" @input="console.log(lazymsg)" @change="console.log(lazymsg)" />
 </template>
