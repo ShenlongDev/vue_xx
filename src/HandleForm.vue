@@ -4,6 +4,14 @@ import { ref } from 'vue'
 const text = ref('')
 const message = ref('')
 const checkedNames = ref([])
+
+const selected = ref('A')
+
+const options = ref([
+  { text: 'One', value: 'A' },
+  { text: 'Two', value: 'B' },
+  { text: 'Three', value: 'C' }
+])
 </script>
 
 <template>
@@ -56,4 +64,57 @@ const checkedNames = ref([])
   <label for="one">One</label>
   <input type="radio" id="two" value="Two" v-model="picked" />
   <label for="two">Two</label>
+  <h3>选择器</h3>
+  <div>Selected: {{ selected }}</div>
+  <select v-model="selected">
+    <option disabled value="">Please select one</option>
+    <option>A</option>
+    <option>B</option>
+    <option>C</option>
+  </select>
+  <p>多选 (值绑定到一个数组)：</p>
+  <div>Selected: {{ selected }}</div>
+  <select v-model="selected" multiple>
+    <option>A</option>
+    <option>B</option>
+    <option>C</option>
+  </select>
+  <p>选择器的选项可以使用 v-for 动态渲染</p>
+  <select v-model="selected">
+    <option v-for="(index, option) in options" :key="index" :value="option.value" :label="option.text">
+      {{ option.text }}
+    </option>
+  </select>
+  <div>Selected: {{ selected }}</div>
+
+  <h2>值绑定</h2>
+  <p>对于单选按钮，复选框和选择器选项，v-model 绑定的值通常是静态的字符串（或者对复选框是布尔值）：</p>
+  <!-- `picked` 在被选择时是字符串 "a" -->
+  <input type="radio" v-model="picked" value="a" />
+  <!-- `toggle` 只会为 true 或 false -->
+  <input type="checkbox" v-model="toggle" />
+  <!-- `selected` 在第一项被选中时为字符串 "abc" -->
+  <select v-model="selected">
+    <option value="abc">ABC</option>
+  </select>
+  <p>但有时我们可能希望将该值绑定到当前组件实例上的动态数据。
+    这可以通过使用 v-bind 来实现。
+    此外，使用 v-bind 还使我们可以将选项值绑定为非字符串的数据类型。
+  </p>
+  <h3>复选框</h3>
+  <input
+  type="checkbox"
+  v-model="toggle"
+  true-value="yes"
+  false-value="no" />
+  <p>true-value 和 false-value 是 Vue 特有的 attributes，仅支持和 v-model 配套使用。这里 toggle 属性的值会在选中时被设为 'yes'，取消选择时设为 'no'。你同样可以通过 v-bind 将其绑定为其他动态值：</p>
+  <input
+  type="checkbox"
+  v-model="toggle"
+  :true-value="dynamicTrueValue"
+  :false-value="dynamicFalseValue" />
+  <h3>单选按钮</h3>
+  <input type="radio" v-model="pick" :value="first" />
+  <input type="radio" v-model="pick" :value="second" />
+  <p>pick 会在第一个按钮选中时被设为 first，在第二个按钮选中时被设为 second。</p>
 </template>
