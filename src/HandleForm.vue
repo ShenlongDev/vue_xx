@@ -101,4 +101,16 @@ const options = ref([
     这可以通过使用 v-bind 来实现。
     此外，使用 v-bind 还使我们可以将选项值绑定为非字符串的数据类型。
   </p>
+  <h3>复选框</h3>
+  <input
+  type="checkbox"
+  v-model="toggle"
+  true-value="yes"
+  false-value="no" />
+  <p>true-value 和 false-value 是 Vue 特有的 attributes，仅支持和 v-model 配套使用。这里 toggle 属性的值会在选中时被设为 'yes'，取消选择时设为 'no'。你同样可以通过 v-bind 将其绑定为其他动态值：</p>
+  <input
+  type="checkbox"
+  v-model="toggle"
+  :true-value="dynamicTrueValue"
+  :false-value="dynamicFalseValue" />
 </template>
