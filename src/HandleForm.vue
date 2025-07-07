@@ -56,4 +56,20 @@ const checkedNames = ref([])
   <label for="one">One</label>
   <input type="radio" id="two" value="Two" v-model="picked" />
   <label for="two">Two</label>
+  <h3>选择器</h3>
+  <div>Selected: {{ selected }}</div>
+  <select v-model="selected">
+    <option disabled value="">Please select one</option>
+    <option>A</option>
+    <option>B</option>
+    <option>C</option>
+  </select>
+  <p>多选 (值绑定到一个数组)：</p>
+  <div>Selected: {{ selected }}</div>
+  <select v-model="selected" multiple>
+    <option>A</option>
+    <option>B</option>
+    <option>C</option>
+  </select>
+
 </template>
