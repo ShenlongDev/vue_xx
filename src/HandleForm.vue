@@ -139,4 +139,9 @@ const lazymsg = ref('')
   <h3>.trim</h3>
   <p>如果你想要默认自动去除用户输入内容中两端的空格，你可以在 v-model 后添加 .trim 修饰符：</p>
   <input v-model.trim="msg" />
+
+  <h2>组件上的 v-model</h2>
+  <p>HTML 的内置表单输入类型并不总能满足所有需求。</p>
+  <p>幸运的是，我们可以使用 Vue 构建具有自定义行为的可复用输入组件，并且这些输入组件也支持 v-model！</p>
+  <p>要了解更多关于此的内容，请在组件指引中阅读配合 v-model 使用。</p>
 </template>
