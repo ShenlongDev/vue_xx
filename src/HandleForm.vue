@@ -117,4 +117,10 @@ const options = ref([
   <input type="radio" v-model="pick" :value="first" />
   <input type="radio" v-model="pick" :value="second" />
   <p>pick 会在第一个按钮选中时被设为 first，在第二个按钮选中时被设为 second。</p>
+  <h3>选择器选项</h3>
+    <select v-model="selected">
+    <!-- 内联对象字面量 -->
+    <option :value="{ number: 123 }">123</option>
+  </select>
+  <p>v-model 同样也支持非字符串类型的值绑定！在上面这个例子中，当某个选项被选中，selected 会被设为该对象字面量值 { number: 123 }。</p>
 </template>
