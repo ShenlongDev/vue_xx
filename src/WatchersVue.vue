@@ -102,6 +102,12 @@ watchEffect(async () => {
   )
   data.value = await response.json()
 })
+
+watch(id, (newId) => {
+  fetch(`/api/${newId}`).then(() => {
+    // 回调逻辑
+  })
+})
 </script>
 
 <template>
@@ -153,11 +159,13 @@ watch(
   我们可以用 watchEffect 函数来嘉华上面的代码。
   watchEffect（）允许我们自动跟中回调的响应式依赖。
   上面的侦听器可以重写为：
-  这个例子中，回调会立即执行，不需要指定 immediate: true。在执行期间，它会自动追踪 todoId.value 作为依赖（和计算属性类似）。每当 todoId.value 变化时，回调会再次执行。有了 watchEffect()，我们不再需要明确传递 todoId 作为源值。
+  这个例子中，回调会立即执行，不需要指定 immediate: true。在执行期间，它会自动追踪 todoId.value 作为依赖（和计算属性类似）。每当 todoId.value 变化时，回调会再次执行。有了
+  watchEffect()，我们不再需要明确传递 todoId 作为源值。
 
   你可以参考一下这个例子的 watchEffect 和响应式的数据请求的操作。
 
-  对于这种只有一个依赖项的例子来说，watchEffect() 的好处相对较小。但是对于有多个依赖项的侦听器来说，使用 watchEffect() 可以消除手动维护依赖列表的负担。此外，如果你需要侦听一个嵌套数据结构中的几个属性，watchEffect() 可能会比深度侦听器更有效，因为它将只跟踪回调中被使用到的属性，而不是递归地跟踪所有的属性。
+  对于这种只有一个依赖项的例子来说，watchEffect() 的好处相对较小。但是对于有多个依赖项的侦听器来说，使用 watchEffect()
+  可以消除手动维护依赖列表的负担。此外，如果你需要侦听一个嵌套数据结构中的几个属性，watchEffect() 可能会比深度侦听器更有效，因为它将只跟踪回调中被使用到的属性，而不是递归地跟踪所有的属性。
 
   watch vs. watchEffect​
   watch 和 watchEffect 都能响应式地执行有副作用的回调。它们之间的主要区别是追踪响应式依赖的方式：
@@ -165,4 +173,29 @@ watch(
   watch 只追踪明确侦听的数据源。它不会追踪任何在回调中访问到的东西。另外，仅在数据源确实改变时才会触发回调。watch 会避免在发生副作用时追踪依赖，因此，我们能更加精确地控制回调函数的触发时机。
 
   watchEffect，则会在副作用发生期间追踪依赖。它会在同步执行过程中，自动追踪所有能访问到的响应式属性。这更方便，而且代码往往更简洁，但有时其响应性依赖关系会不那么明确。
+
+  副作用清理
+  又是我们可能会在侦听器中执行副作用，例如异步请求：
+  watch(id, (newId) => {
+  fetch(`/api/${newId}`).then(() => {
+  // 回调逻辑
+  })
+  })
+
+  但是如果在请求完成之前 id 发生了变化怎么办？当上一个请求完成时，它仍会使用已经过时的 ID 值触发回调。理想情况下，我们希望能够在 id 变为新值时取消过时的请求。
+  我们可以使用 onWatcherCleanup() API 来注册一个清理函数，当侦听器失效并准备重新运行时会被调用：
+  import { watch, onWatcherCleanup } from 'vue'
+
+  watch(id, (newId) => {
+  const controller = new AbortController()
+
+  fetch(`/api/${newId}`, { signal: controller.signal }).then(() => {
+  // 回调逻辑
+  })
+
+  onWatcherCleanup(() => {
+  // 终止过期请求
+  controller.abort()
+  })
+  })
 </template>
