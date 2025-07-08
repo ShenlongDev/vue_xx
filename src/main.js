@@ -2,6 +2,6 @@ import './assets/main.css'
 
 import { createApp } from 'vue'
 
-import App from './HandleForm.vue'
+import App from './WatchersVue.vue'
 
 createApp(App).mount('#app')
