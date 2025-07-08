@@ -81,6 +81,20 @@ watch(
   },
   { once: true }
 )
+
+const todoId = ref(1)
+const data = ref(null)
+
+watch(
+  todoId,
+  async () => {
+    const response = await fetch(
+      `https://jsonplaceholder.typicode.com/todos/${todoId.value}`
+    )
+    data.value = await response.json()
+  },
+  { immediate: true }
+)
 </script>
 
 <template>
@@ -125,4 +139,7 @@ watch(
   <h2>一次性侦听器</h2>
   <p>仅支持 3.4 及以上版本</p>
   <p>每当被侦听员发生辩护时，侦听器的回调就会执行。如果希望回调只在原变化是触发一次，使用 once：true 选项。</p>
+
+  <h2>watchEffect()</h2>
+  <p>侦听器的回调使用与源完全相同的响应式状态时很常见的。例如下面的代码，在每当 todoId 的引用发生变化时使用侦听器来加载一个远程资源：</p>
 </template>
