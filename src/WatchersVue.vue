@@ -56,6 +56,13 @@ watch(obj, (newValue, oldValue) => {
 })
 
 obj.count++
+
+watch(
+  () => obj.count,
+  () => {
+    // 仅当 state.someObject 被替换时触发
+  }
+)
 </script>
 
 <template>
@@ -89,5 +96,6 @@ watch(
 
   <h2>深层侦听器</h2>
   <p>直接给 watch() 传入一个响应式对象，会隐式地创建一个深层侦听器——该回调函数在所有嵌套的变更时都会被触发：</p>
+  <p>相比之下，一个返回响应式对象的 getter 函数，只有在返回不同的对象是，才会触发回调：</p>
 </template>
 
