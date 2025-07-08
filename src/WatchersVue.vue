@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch } from 'vue'
+import { ref, watch, reactive } from 'vue'
 
 const question = ref('')
 const answer = ref('Questions usually contain a question mark. ;-)')
@@ -44,6 +44,18 @@ watch(
     console.log(`x is ${newX} and y is ${newY}`)
   }
 )
+
+const obj = reactive({ count: 0 })
+
+watch(obj, (newValue, oldValue) => {
+  // 在嵌套的属性变更时触发
+  // 注意：`newValue` 此处和 `oldValue` 是相等的
+  // 因为它们是同一个对象！
+  console.log(newValue)
+  console.log(oldValue)
+})
+
+obj.count++
 </script>
 
 <template>
@@ -74,5 +86,8 @@ watch(
     console.log(`Count is: ${count}`)
   }
 )</pre>
+
+  <h2>深层侦听器</h2>
+  <p>直接给 watch() 传入一个响应式对象，会隐式地创建一个深层侦听器——该回调函数在所有嵌套的变更时都会被触发：</p>
 </template>
 
