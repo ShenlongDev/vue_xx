@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch, reactive } from 'vue'
+import { ref, watch, reactive, watchEffect } from 'vue'
 
 const question = ref('')
 const answer = ref('Questions usually contain a question mark. ;-)')
@@ -95,6 +95,13 @@ watch(
   },
   { immediate: true }
 )
+
+watchEffect(async () => {
+  const response = await fetch(
+    `https://jsonplaceholder.typicode.com/todos/${todoId.value}`
+  )
+  data.value = await response.json()
+})
 </script>
 
 <template>
@@ -142,4 +149,9 @@ watch(
 
   <h2>watchEffect()</h2>
   <p>侦听器的回调使用与源完全相同的响应式状态时很常见的。例如下面的代码，在每当 todoId 的引用发生变化时使用侦听器来加载一个远程资源：</p>
+  特别是注意侦听器时如何两次使用 todoId 的，一次时作为源，另一次时在回调中。
+  我们可以用 watchEffect 函数来嘉华上面的代码。
+  watchEffect（）允许我们自动跟中回调的响应式依赖。
+  上面的侦听器可以重写为：
+
 </template>
