@@ -236,4 +236,13 @@ watch(
   watchEffect(callback, {
   flush: 'post'
   })
+
+  后置刷新的 watchEffect() 有个更方便的别名 watchPostEffect()：
+
+  js
+  import { watchPostEffect } from 'vue'
+
+  watchPostEffect(() => {
+  /* 在 Vue 更新后执行 */
+  })
 </template>
