@@ -1,11 +1,19 @@
 <script setup>
-import { useTemplateRef, onMounted } from 'vue';
+import { useTemplateRef, onMounted, watchEffect } from 'vue';
 
 // 第一个参数必须与模板中的 ref 值匹配
 const input = useTemplateRef('my-input')
 
 onMounted(() => {
   input.value.focus()
+})
+
+watchEffect(() => {
+  if (input.value) {
+    input.value.focus()
+  } else {
+    // 此时还未挂载，或此元素已经被卸载（例如通过 v-if 控制）
+  }
 })
 </script>
 
@@ -22,4 +30,11 @@ onMounted(() => {
   <h2>访问模板引用</h2>
   要在组合式 API 中获取引用，我们可以使用辅助函数 useTemplateRef():
   <input ref="my-input">
+  在使用 TypeScript 时，Vue 的 IDE 支持和 vue-tsc 将根据匹配的 ref attribute 所用的元素或组件自动推断 input.value 的类型。
+  —— 3.5以前的用法
+  注意，你只可以在组件挂载后才能访问模板引用。
+  如果你想在模板中的表达式上访问 input，你初次渲染时会是 null。
+  这是因为在初次渲染前这个元素还不存在呢！
+  如果你需要侦听一个模板引用 ref 的变化，确保考虑到其值为 null 的情况：
+  也可参考：为模板引用标注类型
 </template>
