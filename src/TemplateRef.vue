@@ -37,7 +37,10 @@ const list = ref([
   1, 2, 3, 4, 5
 ])
 
-const itemRefs = useTemplateRef('items')
+// const itemRefs = useTemplateRef('items')
+// onMounted(() => console.log(itemRefs.value))
+const itemRefs = ref([])
+
 onMounted(() => console.log(itemRefs.value))
 </script>
 
@@ -90,4 +93,8 @@ onMounted(() => console.log(itemRefs.value))
       {{ item }}
     </li>
   </ul>
+  —— 3.5前的用法
+  在 3.5 版本以前，useTemplateRef() 尚未引入，需要声明一个与模板引用 attribute 同名的 ref。
+  该 ref 的值需要是一个数组。
+  应该注意的是，ref 数组并不保证与源数组相同的顺序。
 </template>
