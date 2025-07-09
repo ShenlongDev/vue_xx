@@ -20,7 +20,17 @@ watchEffect(() => {
 const ChildRef = useTemplateRef('child')
 
 onMounted(() => {
-  console.log(ChildRef)
+  console.log(ChildRef.value)
+})
+
+import { ref } from 'vue'
+const a = 1
+const b = ref(2)
+
+// 像 defineExpose 这样的编译器宏不需要导入
+defineExpose({
+  a,
+  b
 })
 </script>
 
@@ -50,4 +60,18 @@ onMounted(() => {
   模板引用也可以被用在一个子组件上。
   这种情况下引用中获得的值是组件实例：
   <Child ref="child" />
+  —— 3.5 前的用法
+  如果一个子组件使用的是选项式 API 或没有使用 script setup,
+  被引用的组件实例和该子组件的 this 完全一致，
+  这意味着父组件对子组件的每一个属性和方法都有完全的访问权。
+  这使得在父组件和子组件之间创建紧密耦合的实现细节变得很容易，
+  当然也因此，应该只在绝对需要时才使用组件引用。
+  大多数情况下，你应该首先使用标准的 props 和 emit 接口来实现父子组件交互。
+  有一个例外的情况，使用了 script setup 的组件是默认私有的：
+  一个父组件无法访问到一个使用了 script setup 的子组件中的任何东西，
+  除非子组件在其中通过 defineExpose 宏显式暴露：
+  当父组件通过模板引用获取到了该组件的实例时，得到的实例类型为 { a: number, b: number } (ref 都会自动解包，和一般的实例一样)。
+  请注意，defineExpose 必须在任何 await 操作之前调用。
+  否则，在 await 操作后暴露的属性和方法将无法访问。
+  TypeScript 用户请参考：为组件的模板引用标注类型
 </template>
