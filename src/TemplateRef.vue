@@ -32,6 +32,13 @@ defineExpose({
   a,
   b
 })
+
+const list = ref([
+  1, 2, 3, 4, 5
+])
+
+const itemRefs = useTemplateRef('items')
+onMounted(() => console.log(itemRefs.value))
 </script>
 
 <template>
@@ -74,4 +81,13 @@ defineExpose({
   请注意，defineExpose 必须在任何 await 操作之前调用。
   否则，在 await 操作后暴露的属性和方法将无法访问。
   TypeScript 用户请参考：为组件的模板引用标注类型
+
+  <h2>v-for 中的模板引用</h2>
+  挡在 v-for 中使用模板引用时，对应的 ref 中包含的值是一个数组，
+  他将在元素被挂载后包含对应整个列表的所有元素：
+  <ul>
+    <li v-for="item in list" :key="item" ref="items">
+      {{ item }}
+    </li>
+  </ul>
 </template>
