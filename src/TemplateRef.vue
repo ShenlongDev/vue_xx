@@ -1,5 +1,6 @@
 <script setup>
 import { useTemplateRef, onMounted, watchEffect } from 'vue';
+import Child from './components/ChildRef.vue'
 
 // 第一个参数必须与模板中的 ref 值匹配
 const input = useTemplateRef('my-input')
@@ -14,6 +15,12 @@ watchEffect(() => {
   } else {
     // 此时还未挂载，或此元素已经被卸载（例如通过 v-if 控制）
   }
+})
+
+const ChildRef = useTemplateRef('child')
+
+onMounted(() => {
+  console.log(ChildRef)
 })
 </script>
 
@@ -40,4 +47,7 @@ watchEffect(() => {
 
   <h2>组件上的 ref</h2>
   这一小节假设你已了解组件的相关知识，或者你也可以先跳过这里，之后在回来看。
+  模板引用也可以被用在一个子组件上。
+  这种情况下引用中获得的值是组件实例：
+  <Child ref="child" />
 </template>
