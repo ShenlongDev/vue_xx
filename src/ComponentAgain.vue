@@ -1,5 +1,5 @@
 <script setup>
-
+import CounterComponent from './components/CounterComponent.vue'
 </script>
 
 
@@ -34,4 +34,10 @@
   你也可以使用 ID 选择器来只想一个元素（通常是原生的 template 元素），Vue 将会使用其内容作为模板来源。
 
   上面的例子中定义了一个组件，并在一个 .js 文件里默认导出了它自己，但你也可以通过具名导出在一个文件中导出多个组件。
+
+  <h2>使用组件</h2>
+  要使用一个子组件，我们需要在父组件中导入它。
+  假设我们把计数器组件放在了一个叫做 `CounterComponent.vue` 的文件中，这个组件将会以默认导出的形式被暴露给外部。
+  <CounterComponent />
+  通过 script setup 导入的组件都在模板中直接可用。
 </template>
