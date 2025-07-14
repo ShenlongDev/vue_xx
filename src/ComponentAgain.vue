@@ -20,5 +20,16 @@ import CounterComponent from './components/CounterComponent.vue'
   <p>
     你会注意到，每当点击这些按钮时，每一个组件都维护者自己的状态，是不同的 count。
     这是因为每当你使用一个组件，就创建的一个新的实例。
+    在单文件组件中，推荐为子组件使用 PascalCase 标签名，以此来原生的 HTML 元素做区分。
+    虽然原生 HTML 标签名时不区分大小写的，但 Vue 单文件组件时可以在编译中区分大小写的。
+    我们也可以使用 /> 来关闭一个标签。
+    如果你是直接在 DOM 中书写模板，（例如原生 template 元素的内容），模板的编译需要遵从浏览器中 HTML 的解析行为。
+    在这种情况下，你应该需要使用 kebab-case 形式并显式地关闭这些组件的标签。
+  </p>
+  <counter-component></counter-component>
+  <counter-component></counter-component>
+  <counter-component></counter-component>
+  <p>
+    请看 DOM 内模板解析注意事项了解更多细节。
   </p>
 </template>
