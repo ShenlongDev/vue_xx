@@ -1,6 +1,12 @@
 <script setup>
+import { ref } from 'vue'
 import PostBlog from './components/PostBlog.vue';
 
+const postsArray = ref([
+  { title: 'Hello World' },
+  { title: 'Hello Vue' },
+  { title: 'Hello Vue 3' }
+])
 </script>
 
 
@@ -45,4 +51,13 @@ import PostBlog from './components/PostBlog.vue';
   <PostBlog title="Hello Wrold" />
   <PostBlog title="Hello Vue" />
   <post-blog title="Hello Vue 3" />
+  <p>
+    在实际应用中，我们可能在父组件中会有如下的一个博客文章数组：
+    这种情况下，我们可以使用 v-for 来渲染他们：
+  </p>
+  <PostBlog v-for="post in postsArray" :key="post.title" :title="post.title" />
+  <p>
+    留意我们是如何使用 v-bind 语法 (:title="post.title") 来传递动态 prop 值的。当事先不知道要渲染的确切内容时，这一点特别有用。
+    以上就是目前你需要了解的关于 props 的全部了。如果你看完本章节后还想知道更多细节，我们推荐你深入阅读关于 props 的完整指引。
+  </p>
 </template>
