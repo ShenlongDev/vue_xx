@@ -1,4 +1,6 @@
 <script setup>
+import PostBlog from './components/PostBlog.vue';
+
 </script>
 
 
@@ -37,4 +39,10 @@
     </pre>
     一个组件可以有任意多的 props，默认情况下，所有 prop 都接受任意类型的值。
   </p>
+  <p>
+    当一个 prop 被注册后，可以想这样以自定义 attribute 的形式传递数据给它：
+  </p>
+  <PostBlog title="Hello Wrold" />
+  <PostBlog title="Hello Vue" />
+  <post-blog title="Hello Vue 3" />
 </template>
