@@ -23,4 +23,18 @@
   <p>
     TypeScript 用户请参考：为组件 props 标注类型
   </p>
+  <p>
+    如果你没有使用 script setup，props 必须以 props 选项的方式声明，props 对象会作为 setup() 函数的第一个参数被传入。
+    <pre>
+      <code>
+        export default {
+          props: ['title'],
+          setup(props) {
+            console.log(props.title)
+          }
+        }
+      </code>
+    </pre>
+    一个组件可以有任意多的 props，默认情况下，所有 prop 都接受任意类型的值。
+  </p>
 </template>
