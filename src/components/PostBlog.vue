@@ -1,7 +1,8 @@
 <script setup>
-defineProps(['title'])
+// defineProps(['title'])
+const props = defineProps(['title'])
 </script>
 
 <template>
-  <h4>{{ title }}</h4>
+  <h4>{{ props.title }}</h4>
 </template>

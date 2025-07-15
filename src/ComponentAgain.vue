@@ -15,4 +15,12 @@
     要传递给博客文章组件一个标题，我们必须在组件的 props 列表上声明它。
     这里要用到 defineProps 宏：
   </p>
+  <p>
+    defineProps 是一个仅 script setup 中可用的编译宏命令，并不需要显式地导入。
+    声明的 Props 会自动暴露给模板。
+    defineProps 会返回一个对象，其中包含了可以传递给组件的所有 props：
+  </p>
+  <p>
+    TypeScript 用户请参考：为组件 props 标注类型
+  </p>
 </template>
