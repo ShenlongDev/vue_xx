@@ -29,6 +29,7 @@ const postFontSize = ref(1)
       :key="post.id"
       :title="post.title"
       @enlarge-text="postFontSize += 0.1"
+      @reduce-text="postFontSize -= 0.1"
     />
   </div>
 </template>
