@@ -1,66 +1,6 @@
-<script setup>
-import TabHome from './components/TabHome.vue'
-import TabPosts from './components/TabPosts.vue'
-import TabArchive from './components/TabArchive.vue'
-import { ref } from 'vue'
-
-const currentTab = ref('TabHome')
-
-const tabs = {
-  TabHome,
-  TabPosts,
-  TabArchive
-}
-</script>
-
-
 <template>
   <h1>组件基础</h1>
-  <h2>动态组件</h2>
-  <div class="demo">
-    <button
-       v-for="(_, tab) in tabs"
-       :key="tab"
-       :class="['tab-button', { active: currentTab === tab }]"
-       @click="currentTab = tab"
-     >
-      {{ tab }}
-    </button>
-	  <component :is="tabs[currentTab]" class="tab"></component>
-  </div>
+  <h2>DOM 内模板解析注意事项</h2>
+  <p>如果你想在 DOM 中直接书写 Vue 模板，Vue 则必须从 DOM 中获取模板字符串。</p>
+  <p>由于浏览器的原生 HTML 解析行为限制，有一些需要注意的事项。</p>
 </template>
-
-
-<style>
-.demo {
-  font-family: sans-serif;
-  border: 1px solid #eee;
-  border-radius: 2px;
-  padding: 20px 30px;
-  margin-top: 1em;
-  margin-bottom: 40px;
-  user-select: none;
-  overflow-x: auto;
-}
-
-.tab-button {
-  padding: 6px 10px;
-  border-top-left-radius: 3px;
-  border-top-right-radius: 3px;
-  border: 1px solid #ccc;
-  cursor: pointer;
-  background: #f0f0f0;
-  margin-bottom: -1px;
-  margin-right: -1px;
-}
-.tab-button:hover {
-  background: #e0e0e0;
-}
-.tab-button.active {
-  background: #e0e0e0;
-}
-.tab {
-  border: 1px solid #ccc;
-  padding: 10px;
-}
-</style>
