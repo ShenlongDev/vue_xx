@@ -32,6 +32,23 @@
   <blog-post>
     <span>Hello Vue 3</span>
   </blog-post>
+
+  <h3>元素位置限制</h3>
+  <p>
+    某些 HTML 元素对于放在其中的元素类型有限制，例如 ul，ol，table 和 select，
+    相应的，某些元素进在放置于特定的元素才会显示，例如 li，tr 和 option。
+    这将导致在使用带有此类限制元素的组件时出现问题。例如：
+  </p>
+  <table>
+    <blog-post-row></blog-post-row>
+  </table>
+  <p>
+    自定义的组件 blog-post-row 将作为无效的内容被忽略，因而在最终呈现的输出中造成错误。
+    我们可以使用特殊的 is attribute 作为一种解决方案：
+  </p>
+  <table>
+    <tr is="vue:blog-post-row"></tr>
+  </table>
 </template>
 
 <script setup>
