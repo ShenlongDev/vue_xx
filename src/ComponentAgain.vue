@@ -12,6 +12,26 @@
   </p>
   <!-- HTML 中的 kebab-case -->
   <blog-post post-title="hello!" @update-post="onUpdatePost"></blog-post>
+
+  <h3>闭合标签</h3>
+  <p>我们在上面的例子中已经使用过了闭合标签（self-closing tag）:</p>
+  <BlogPost />
+  <p>
+    这是因为 Vue 的模板解析器支持任意标签使用 /> 作为标签关闭的标志。
+    然而在 DOM 内模板中，我们必须显示地写出关闭标签：
+  </p>
+  <blog-post></blog-post>
+  <p>
+    这是由于 HTML 只允许一小部分特殊的元素省略其关闭标签，最常见的就是 input 和 img。
+    对于其他的元素来说，如果你省略了关闭标签，原生的 HTML 解析器会认为开启的标签永远没有结束，
+    用下面这个代码片段举例来说：
+  </p>
+  <blog-post />
+  <span>Hello Vue 3</span>
+  <p>将被解析为：</p>
+  <blog-post>
+    <span>Hello Vue 3</span>
+  </blog-post>
 </template>
 
 <script setup>
