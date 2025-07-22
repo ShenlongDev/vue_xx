@@ -1,47 +1,25 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
+import { createApp } from 'vue'
+import ComponentRegister from './feature/ComponentRegister.vue'
+import ComponentBasic from './ComponentBasic.vue'
+
+const app = createApp({})
+
+app
+// .component(
+//   // 组件的名字
+//   'ComponentTest',
+//   // 组件的实现
+//   {
+//   template: `
+//     <p>这是全局注册实例</p>
+//   `
+// })
+.component('ComponentRegister', ComponentRegister)
+.component('ComponentBasic', ComponentBasic)
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
+  <ComponentRegister />
+  <ComponentBasic />
 </template>
-
-<style scoped>
-header {
-  line-height: 1.5;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-}
-</style>
