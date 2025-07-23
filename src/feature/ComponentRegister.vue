@@ -23,4 +23,13 @@
   <p>如果没有使用 script setup， 则需要使用 components 选项来显式注册。</p>
   <p>对于每个 components 对象里的属性，它们的 key 名就是注册的组件名，而值就是相应组件的实现。上面的例子中使用的是 ES2015 的缩写语法，等价于：</p>
   <p>请注意：局部注册的组价你在后代组件中不可用。在这个例子中， ComponentBasic 注册后仅在当前组件可用，而在任何的子组件或更深层的子组件中都不可用。</p>
+
+  <h2>组件名格式</h2>
+  <p>在整个指引中，我们都使用 PascalCase 作为组件名的注册格式，这是因为：</p>
+  <ul>
+    <li>PascalCase 是合法的 JavaScript 标识符。这使得在 JavaScript 中导入和注册组件都很容易，同时 IDE也能提供较好的自动补全。</li>
+    <li>PascalCase 在模板中更明显地表明了这是一个 Vue 组件，而不是原生 HTML 元素。同时也能够将 Vue 组件和自定义元素 (web components)区分开来。</li>
+  </ul>
+  <p>在单文件组件和内联字符串模板中，我们都推荐这样做。但是 PascalCase 的标签名在 DOM 内模板中是不可用的，详情参见 DOM 内模板解析注意事项。</p>
+  <p>为了方便，Vue 支持将模板中使用 kebab-case 的标签解析为使用 PascalCase 注册的组件。这意味着一个以 ComponentRegister 为名注册的组件，在模板中可以通过 ComponentRegister 或 component-register 引用。这让我们能够使用同样的 JavaScript 组件注册代码来配合不同来源的模板。</p>
 </template>
