@@ -11,15 +11,18 @@ app.component('ComponentRegister', ComponentRegister)
   <ComponentRegister />
 </template> -->
 <script>
+import ComponentBasic from './ComponentBasic.vue';
 import ComponentRegister from './feature/ComponentRegister.vue'
 
 export default {
   components: {
-    ComponentRegister
+    ComponentRegister: ComponentRegister,
+    ComponentBasic,
   }
 }
 </script>
 
 <template>
   <ComponentRegister />
+  <ComponentBasic />
 </template>
