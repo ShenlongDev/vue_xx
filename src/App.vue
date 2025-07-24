@@ -1,12 +1,12 @@
 <script setup>
 import { createApp } from 'vue'
-import ComponentRegister from './feature/ComponentRegister.vue'
+import ComponentProps from './views/docs_component/ComponentProps.vue'
 
 const app = createApp({})
 
-app.component('ComponentRegister', ComponentRegister)
+app.component('ComponentProps', ComponentProps)
 </script>
 
 <template>
-  <ComponentRegister />
+  <ComponentProps />
 </template>
