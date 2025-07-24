@@ -8,15 +8,12 @@
   <p>除了声明字符串数组来声明 props 外，还可以使用对象的形式：</p>
   <p>对于以对象形式声明的每个属性， key 是 prop 的名称，而值则是该 prop 预期类型的构造函数。比如，如果要求一个 prop 的值是 number 类型，则可使用 number 构造函数作为其声明的值。</p>
   <p>对象形式的 props 声明不仅可以一定程度上作为组件的文档，而是如果其他开发者在使用你的组件时传递了错误的类型，也会在浏览器控制台中抛出警告。我们将在本章节稍后进一步讨论有关 prop 校验的更多细节。</p>
+  <p>如果你正在搭配 TypeScript 使用 script setup, 也可以使用类型标注来声明 props:</p>
 </template>
 
-<script setup>
-const props = defineProps({
-  bar: {
-    type: String,
-    default: 'bar'
-  }
-})
-
-console.log('defineProps', props.bar)
+<script setup lang="ts">
+defineProps<{
+  title?: string
+  likes?: number
+}>()
 </script>
