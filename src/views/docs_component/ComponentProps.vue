@@ -1,19 +1,24 @@
 <template>
   <h1>Props</h1>
-  <h2>Props 声明</h2>
-  <p>一个组件需要显式声明它所接受的 props，这样 Vue 才能知道外部传入的哪些是 props，哪些是透传 attribute。</p>
-  <p>在使用 script setup 的单文件组件中，props可以使用 defineProps() 宏来声明。</p>
-  <p>在没有使用 script setup 的组件中，props 可以用 props 选项来声明：</p>
-  <p>注意传递给 defineProps() 的参数和提供给 props 选项的值是相同的，两种声明方式背后其实使用的都是 props 选项。</p>
-  <p>除了声明字符串数组来声明 props 外，还可以使用对象的形式：</p>
-  <p>对于以对象形式声明的每个属性， key 是 prop 的名称，而值则是该 prop 预期类型的构造函数。比如，如果要求一个 prop 的值是 number 类型，则可使用 number 构造函数作为其声明的值。</p>
-  <p>对象形式的 props 声明不仅可以一定程度上作为组件的文档，而是如果其他开发者在使用你的组件时传递了错误的类型，也会在浏览器控制台中抛出警告。我们将在本章节稍后进一步讨论有关 prop 校验的更多细节。</p>
-  <p>如果你正在搭配 TypeScript 使用 script setup, 也可以使用类型标注来声明 props:</p>
+  <h2>传递 prop 的细节</h2>
+  <h3>Prop 名字格式</h3>
+  <p>如果一个 prop 的名字很长，应使用 camelCase 形式，因为它们是合法的 JavaScript 标识符，可以直接在模板的表达式中使用，也可以避免在作为属性 key 名时必须加上引号。</p>
+  <span>{{ greetingMessage }}</span>
+  <p>虽然理论上你也可以在向子组件传递 props 时使用 camelCase 形式，但实际上为了和 HTML attribute 对齐，我们通常会将其写为 kebab-case 的形式：</p>
+  <MyComponent greeting-message="hello" />
+  <p>对组件名我们推荐使用 PascalCase，因为这提高了模板可读性，能帮助我们区分 Vue 组件和原生 HTML 元素。然而对于传递 props 来说，使用 camelCase 并没有太多的优势，因此我们推荐更贴近 HTML 的书写风格。</p>
 </template>
 
-<script setup lang="ts">
-defineProps<{
-  title?: string
-  likes?: number
-}>()
+<script setup>
+const props = defineProps({
+  greetingMessage: String
+})
+
+// 定义子组件
+const MyComponent = {
+  props: {
+    greetingMessage: String
+  },
+  template: `<span>hello, {{ greetingMessage }}</span>`
+}
 </script>
