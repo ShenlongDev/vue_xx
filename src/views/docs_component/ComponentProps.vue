@@ -11,14 +11,6 @@
   <PostBlog :likes="42" />
   <!-- 根据一个变量的值动态传入 -->
   <PostBlog :likes="post.likes" />
-  <h4>Boolean</h4>
-  <!-- 仅写上 prop 但不传值，会隐式转换为 `true` -->
-  <PostBlog is-published />
-  <!-- 虽然 `false` 是静态的值，我们还是需要使用 v-bind -->
-  <!-- 因为这是一个 JavaScript 表达式而不是一个字符串 -->
-  <PostBlog :is-published="false" />
-  <!-- 根据一个变量的值动态传入 -->
-  <PostBlog :is-published="post.isPublished" />
 </template>
 
 <script setup>
@@ -27,7 +19,6 @@ import PostBlog from '@/components/PostBlog.vue'
 const post = {
   title: 'This is the first post',
   author: 'super dev',
-  likes: 5003,
-  isPublished: false
+  likes: 5003
 }
 </script>
