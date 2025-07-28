@@ -3,11 +3,14 @@
   <h2>传递 prop 的细节</h2>
   <h3>Prop 名字格式</h3>
   <h3>静态 vs. 动态 Props</h3>
-  <p>至此，你已经见过了很多像这样的静态值形式的 Props：</p>
-  <PostBlog title="My journey with Vue" />
-  <p>相应地，还有使用 v-bind 或缩写：来进行动态绑定的 props：</p>
-  <PostBlog :title="post.title + '.'" />
-  <PostBlog :title="post.title + ' by ' + post.author + '.'" />
+  <h3>传递不同的值类型</h3>
+  <p>在上述的两个例子中，我们只传入了字符串值，但实际上任何类型的值都可以作为 props 的值被传递。</p>
+  <h4>Number</h4>
+  <!-- 虽然 `42` 是个常量，我们还是需要使用 v-bind -->
+  <!-- 因为这是一个 JavaScript 表达式而不是一个字符串 -->
+  <PostBlog :likes="42" />
+  <!-- 根据一个变量的值动态传入 -->
+  <PostBlog :likes="post.likes" />
 </template>
 
 <script setup>
@@ -15,6 +18,7 @@ import PostBlog from '@/components/PostBlog.vue'
 
 const post = {
   title: 'This is the first post',
-  author: 'super dev'
+  author: 'super dev',
+  likes: 5003
 }
 </script>
