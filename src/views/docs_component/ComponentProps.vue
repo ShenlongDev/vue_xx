@@ -8,11 +8,17 @@
   <h4>Number</h4>
   <h4>Boolean</h4>
   <h4>Array</h4>
-  <!-- 虽然这个数组是个常量，我们还是需要使用 v-bind -->
+  <h4>Object</h4>
+  <!-- 虽然这个对象字面量是个常量，我们还是需要使用 v-bind -->
   <!-- 因为这是一个 JavaScript 表达式而不是一个字符串 -->
-  <PostBlog :comment-ids="[234, 266, 273]" />
+  <PostBlog
+    :author="{
+      name: 'Veronica',
+      company: 'Veridian Dynamics'
+    }"
+  />
   <!-- 根据一个变量的值动态传入 -->
-  <PostBlog :comment-ids="post.commentIds" />
+  <PostBlog :author="post.author" />
 </template>
 
 <script setup>
@@ -20,8 +26,11 @@ import PostBlog from '@/components/PostBlog.vue'
 
 const post = {
   title: 'This is the first post',
-  author: 'super dev',
   likes: 5003,
-  commentIds: [234, 266, 273]
+  commentIds: [234, 266, 273],
+  author: {
+    name: 'Veronica',
+    company: 'Veridian Dynamics'
+  }
 }
 </script>
