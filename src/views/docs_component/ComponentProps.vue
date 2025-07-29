@@ -9,16 +9,9 @@
   <h4>Boolean</h4>
   <h4>Array</h4>
   <h4>Object</h4>
-  <!-- 虽然这个对象字面量是个常量，我们还是需要使用 v-bind -->
-  <!-- 因为这是一个 JavaScript 表达式而不是一个字符串 -->
-  <PostBlog
-    :author="{
-      name: 'Veronica',
-      company: 'Veridian Dynamics'
-    }"
-  />
-  <!-- 根据一个变量的值动态传入 -->
-  <PostBlog :author="post.author" />
+  <h3>使用一个对象绑定多个 prop</h3>
+  <p>如果你想要将一个对象的所有属性当做 props 传入，你可以使用没有参数的 v-bind，机制使用 v-bind 而非：prop-name。例如，这里有一个 post 对象：</p>
+  <post-blog v-bind="post"></post-blog>
 </template>
 
 <script setup>
