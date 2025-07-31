@@ -1,29 +1,24 @@
 <template>
   <h1>Props</h1>
-  <h2>单向数据流</h2>
-  <p>所有的 props 都遵循着单向绑定原则，props 因父组件的更新而变化，自然地将新的状态向下流往子组件，而不会逆向传递。这避免了子组件意外修改父组件的状态的情况，不然应用的数据流将很容易得混乱而难以理解。</p>
-  <p>另外，每次父组件更新后，所有的子组件中的 props 都会被更新到最新值，这意味着你不应该在子组件中去更改一个 prop。若你这么做了，Vue 会在控制台向你抛出警告：</p>
-  <p>导致你想要更改一个 prop 的需求通常来源于以下两种场景：</p>
-  <p>prop 被用于传入初始值；而子组件想在之后将其作为一个局部数据属性。在这种情况下，最好是新定义一个局部数据属性，从 props 上获取初始值即可：</p>
-  <p>需要对传入的 prop 值做进一步的转换。在这种情况中，最好是基于该 prop 值定义一个计算属性：</p>
-  <h3>更改对象 / 数组类型的 props</h3>
-  <p>当对象或数组作为 props 被传入时，虽然子组件无法更改 props 绑定，但仍然可以更改对象或数组内部的值。这是因为 JavaScript 的对象和数组是按引用传递，对 Vue 来说，阻止这种更改需要付出的代价异常昂贵。</p>
-  <p>这种更改的主要缺陷是它允许了子组件以某种不明显的方式影响父组件的状态，可能会使数据流在将来变得更难以理解。在最佳实践中，你应该尽可能避免这样的更改，除非父子组件在设计上本来就需要紧密耦合。在大多数场景下，子组件应该抛出一个事件来通知父组件做出改变。</p>
+  <h2>传递 prop 的细节</h2>
+  <h3>Prop 名字格式</h3>
+  <p>如果一个 prop 的名字很长，应使用 camelCase 形式，因为它们是合法的 JavaScript 标识符，可以直接在模板的表达式中使用，也可以避免在作为属性 key 名时必须加上引号。</p>
+  <span>{{ greetingMessage }}</span>
+  <p>虽然理论上你也可以在向子组件传递 props 时使用 camelCase 形式，但实际上为了和 HTML attribute 对齐，我们通常会将其写为 kebab-case 的形式：</p>
+  <MyComponent greeting-message="hello" />
+  <p>对组件名我们推荐使用 PascalCase，因为这提高了模板可读性，能帮助我们区分 Vue 组件和原生 HTML 元素。然而对于传递 props 来说，使用 camelCase 并没有太多的优势，因此我们推荐更贴近 HTML 的书写风格。</p>
 </template>
 
 <script setup>
-// const props = defineProps(['foo'])
+const props = defineProps({
+  greetingMessage: String
+})
 
-// // ❌ 警告！prop 是只读的！
-// props.foo = 'bar'
-
-const props = defineProps(['initialCounter'])
-
-// 计数器只是将 props.initialCounter 作为初始值
-// 像下面这样做就使 prop 和后续更新无关了
-const counter = ref(props.initialCounter)
-const props = defineProps(['size'])
-
-// 该 prop 变更时计算属性也会自动更新
-const normalizedSize = computed(() => props.size.trim().toLowerCase())
+// 定义子组件
+const MyComponent = {
+  props: {
+    greetingMessage: String
+  },
+  template: `<span>hello, {{ greetingMessage }}</span>`
+}
 </script>
