@@ -27,6 +27,9 @@
   <p>另外，type 也可以是自定义的类或构造函数，Vue 将会通过 instanceof 来检查类型是否匹配。例如下面这个类：</p>
   <p>你可以将其作为一个 prop 的类型：</p>
   <p>Vue 会通过 instanceof Person 来校验 author prop 的值是否是 Person 类的一个实例。</p>
+  <h3>可为 null 的类型</h3>
+  <p>如果该类型是必传但可为 null 的，你可以用一个包含 null 的数组语法：</p>
+  <p>注意如果 type 仅为 null 而非使用数组语法，他将允许任何类型。</p>
 </template>
 
 <script setup>
