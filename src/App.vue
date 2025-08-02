@@ -8,5 +8,5 @@ app.component('PropValidation', PropValidation)
 </script>
 
 <template>
-  <CompPropValidationonentProps />
+  <PropValidation />
 </template>

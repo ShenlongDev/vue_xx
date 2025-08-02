@@ -2,6 +2,15 @@
   <h2>Prop 校验</h2>
   <p>Vue 组件可以更细致地声明对传入的 props 的校验要求。比如我们上面已经看到过的类型声明，如果传入的值不满足类型要求，Vue 会在浏览器控制台中抛出警告来提醒使用者。这在开发给其他开发者使用的时候非常有用。</p>
   <p>要声明对 props 的校验，你可以向 defineProps 宏提供一个带有 props 校验选项的对象，例如：</p>
+  <p>一些补充细节：</p>
+  <ul>
+    <li>所有 prop 默认是可选的，除非声明了 required：true。</li>
+    <li>除 Boolean 外的未传递的可选 prop 将会有一个默认值 undefined。</li>
+    <li>Boolean 类型的未传递的 prop 将被转换为 false。这可以通过为它设置 default 来更改——例如：设置为 default：undefined 将于非布尔类型的 prop 的行为保持一致。</li>
+    <li>如果声明了 default 值，那么在 prop 的值被解析为 undefined 时，无论 prop 是未传递还是显示指明的 undefined，都会改为 default 值。</li>
+  </ul>
+  <p>当 prop 的校验失败后，Vue 会抛出一个控制台警告（在开发模式下）。</p>
+  <!-- <p>如果使用的基于类型的 prop 声明，Vue 会尽最大努力在运行时按照 prop 的类型标注进行编译。举例来说，defineProps<{ msg: string }> 会被编译为 { msg: { type: String, required: true }}。</p> -->
 </template>
 
 <script setup>
