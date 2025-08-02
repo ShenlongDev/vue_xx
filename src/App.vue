@@ -1,12 +1,12 @@
 <script setup>
 import { createApp } from 'vue'
-import ComponentProps from './views/docs_component/ComponentProps.vue'
+import PropValidation from './views/docs_component/PropValidation.vue'
 
 const app = createApp({})
 
-app.component('ComponentProps', ComponentProps)
+app.component('PropValidation', PropValidation)
 </script>
 
 <template>
-  <ComponentProps />
+  <CompPropValidationonentProps />
 </template>
