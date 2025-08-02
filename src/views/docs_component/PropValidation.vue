@@ -11,6 +11,22 @@
   </ul>
   <p>当 prop 的校验失败后，Vue 会抛出一个控制台警告（在开发模式下）。</p>
   <!-- <p>如果使用的基于类型的 prop 声明，Vue 会尽最大努力在运行时按照 prop 的类型标注进行编译。举例来说，defineProps<{ msg: string }> 会被编译为 { msg: { type: String, required: true }}。</p> -->
+  <h3>运行时类型检查</h3>
+  <p>校验选项中的 type 可以是下列这些原生构造函数：</p>
+  <ul>
+    <li>String</li>
+    <li>Number</li>
+    <li>Boolean</li>
+    <li>Array</li>
+    <li>Object</li>
+    <li>Date</li>
+    <li>Function</li>
+    <li>Symbol</li>
+    <li>Error</li>
+  </ul>
+  <p>另外，type 也可以是自定义的类或构造函数，Vue 将会通过 instanceof 来检查类型是否匹配。例如下面这个类：</p>
+  <p>你可以将其作为一个 prop 的类型：</p>
+  <p>Vue 会通过 instanceof Person 来校验 author prop 的值是否是 Person 类的一个实例。</p>
 </template>
 
 <script setup>
@@ -63,6 +79,25 @@ defineProps({
     default() {
       return 'Default function'
     }
+  },
+  // 自定义
+  author: {
+    type: Object,
+    validator(value) {
+      // 检查 value 是否有 firstName 和 lastName 字符串属性
+      return (
+        value &&
+        typeof value === 'object' &&
+        typeof value.firstName === 'string' &&
+        typeof value.lastName === 'string'
+      )
+    }
   }
 })
+// class Person {
+//   constructor(firstName, lastName) {
+//     this.firstName = firstName
+//     this.lastName = lastName
+//   }
+// }
 </script>
