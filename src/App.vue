@@ -1,12 +1,12 @@
 <script setup>
 import { createApp } from 'vue'
-import PropValidation from './views/docs_component/PropValidation.vue'
+import BooleanCasting from './views/docs_component/BooleanCasting.vue'
 
 const app = createApp({})
 
-app.component('PropValidation', PropValidation)
+app.component('BooleanCasting', BooleanCasting)
 </script>
 
 <template>
-  <PropValidation />
+  <BooleanCasting />
 </template>
